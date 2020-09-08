@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.Universal;
 
 public class AsyncSceneLoader
 {
@@ -13,6 +14,11 @@ public class AsyncSceneLoader
 
 	private static IEnumerator LoadSceneAsyncAdditive(string sceneName)
 	{
+		var watch = System.Diagnostics.Stopwatch.StartNew();
+
+
+
+		//Create Loading UI
 		Slider loadingBar = CreateLoadingScreen();
 
 		//Start loading scene asynchronously
@@ -25,6 +31,10 @@ public class AsyncSceneLoader
 			SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
 			//Set loaded scene as active scene
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+
+
+			watch.Stop();
+			Debug.Log((watch.ElapsedMilliseconds / 1000.0f));
 		};
 
 		//While loading(every frame)
@@ -33,15 +43,17 @@ public class AsyncSceneLoader
 			//Update loading bar
 			float progress = Mathf.Clamp01(async.progress / 0.9f);
 			loadingBar.value = progress;
+			Debug.Log(progress);
 			yield return null;
 		}
 	}
 
 	private static Slider CreateLoadingScreen()
 	{
-		GameObject loadingCanvas = Resources.Load("Prefabs/UI", typeof(GameObject)) as GameObject;
+		GameObject loadingCanvas = Resources.Load("Prefabs/UI/LoadingCanvas", typeof(GameObject)) as GameObject;
 		GameObject loadingCanvasInstance = MonoBehaviour.Instantiate(loadingCanvas);
-		Resources.UnloadAsset(loadingCanvas);
+		Camera uiCamera = loadingCanvasInstance.transform.Find("UICamera").GetComponent<Camera>();
+		Camera.main.GetUniversalAdditionalCameraData().cameraStack.Add(uiCamera);
 		return loadingCanvasInstance.transform.Find("LoadingBar").GetComponent<Slider>();
 	}
 }
