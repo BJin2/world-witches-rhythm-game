@@ -6,7 +6,7 @@ using TMPro;
 public class StartMenu : MonoBehaviour
 {
 	[SerializeField]
-	private TextMeshProUGUI pressAnyKey;
+	private TextMeshProUGUI pressAnyKey = null;
 	private Color textColor;
 	private Color alpha;
 	private bool once = true;

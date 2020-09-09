@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class HangarDoor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private void OnTriggerEnter(Collider col)
+	{
+		//Turn on key instruction
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void OnTriggerExit(Collider col)
+	{
+		//Turn off key instruction
+	}
 }

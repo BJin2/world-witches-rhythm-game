@@ -6,4 +6,9 @@ public class BaseCharacter : MonoBehaviour
 {
 	private float moveSpeed;
 	private float rotateSpeed;
+
+	private void Update()
+	{
+		
+	}
 }
