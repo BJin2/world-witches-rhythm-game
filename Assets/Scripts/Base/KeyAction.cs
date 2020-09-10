@@ -40,4 +40,13 @@ public abstract class KeyAction : MonoBehaviour
 			instructionUI.SetActive(false);
 		}
 	}
+
+	protected void ChangeActionText(string toChange)
+	{
+		actionText.text = toChange;
+	}
+	protected void ChangeKeyText(string toChange)
+	{
+		keyText.text = toChange;
+	}
 }
