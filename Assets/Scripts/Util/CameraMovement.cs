@@ -10,6 +10,7 @@ public class CameraMovement : MonoBehaviour
 		Keyboard
 	}
 
+#region Inspector Variables
 	[HideInInspector]
 	public ControlType controlType = ControlType.Mouse;
 	[HideInInspector]
@@ -18,8 +19,6 @@ public class CameraMovement : MonoBehaviour
 	[HideInInspector]
 	public bool invertY = false;
 
-	[HideInInspector]
-	public float follotSpeed = 5.0f;
 	[HideInInspector]
 	public Transform target = null;
 
@@ -36,6 +35,7 @@ public class CameraMovement : MonoBehaviour
 	public float yAxisMaxLimit = 0;
 	[HideInInspector]
 	public float yAxisMinLimit = 0;
+#endregion
 
 	private float xDelta = 0;
 	private float yDelta = 0;
@@ -45,8 +45,10 @@ public class CameraMovement : MonoBehaviour
 	[HideInInspector]
 	public float invertYMultiplier = 1.0f;
 
-	public Vector3 lookDirection { get { return transform.forward; } }
-	public Vector3 rightDirection { get { return transform.right; } }
+	public Vector3 LookDirection { get { return transform.forward; } }
+	public Vector3 RightDirection { get { return transform.right; } }
+
+	private float followSpeed = 0.0f;
 
 	private void Awake()
 	{
@@ -58,6 +60,23 @@ public class CameraMovement : MonoBehaviour
 
 	private void Update()
 	{
+		Rotate();
+		Follow();
+	}
+
+	private void Follow()
+	{
+		float distance = Vector3.Distance(transform.position, target.position);
+		Vector3 direction = (target.position - transform.position).normalized;
+		if (distance > 0.1f)
+		{
+			followSpeed = Mathf.Pow(distance, 3);
+			transform.position += direction * followSpeed * Time.deltaTime;
+		}
+	}
+
+	private void Rotate()
+	{
 		switch (controlType)
 		{
 			case ControlType.Mouse:
@@ -67,7 +86,7 @@ public class CameraMovement : MonoBehaviour
 				prevPosition = current;
 				break;
 			case ControlType.Keyboard:
-				
+
 				if (Input.GetKey(KeyCode.UpArrow))
 				{
 					yDelta = 10.0f;
@@ -103,8 +122,8 @@ public class CameraMovement : MonoBehaviour
 
 			rotationX = AngleClamp(rotationX, xAxisMinLimit, xAxisMaxLimit);
 			rotationY = AngleClamp(rotationY, yAxisMinLimit, yAxisMaxLimit);
-			
-			transform.localEulerAngles = new Vector3(rotationX, rotationY, transform.localEulerAngles.z);
+
+			transform.localEulerAngles = new Vector3(rotationX, rotationY, 0.0f);
 		}
 	}
 
