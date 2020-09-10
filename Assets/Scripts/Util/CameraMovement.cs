@@ -45,6 +45,9 @@ public class CameraMovement : MonoBehaviour
 	[HideInInspector]
 	public float invertYMultiplier = 1.0f;
 
+	public Vector3 lookDirection { get { return transform.forward; } }
+	public Vector3 rightDirection { get { return transform.right; } }
+
 	private void Awake()
 	{
 		prevPosition = Input.mousePosition;
