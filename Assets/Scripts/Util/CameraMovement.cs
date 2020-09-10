@@ -10,6 +10,7 @@ public class CameraMovement : MonoBehaviour
 		Keyboard
 	}
 
+#region Inspector Variables
 	[HideInInspector]
 	public ControlType controlType = ControlType.Mouse;
 	[HideInInspector]
@@ -34,6 +35,7 @@ public class CameraMovement : MonoBehaviour
 	public float yAxisMaxLimit = 0;
 	[HideInInspector]
 	public float yAxisMinLimit = 0;
+#endregion
 
 	private float xDelta = 0;
 	private float yDelta = 0;
