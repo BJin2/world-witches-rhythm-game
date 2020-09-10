@@ -25,11 +25,10 @@ public class CameraMovement_Editor : Editor
 		}
 		else
 		{
-			script.invertYMultiplier = -1;
+			script.invertYMultiplier = 1;
 		}
 		EditorGUILayout.Space();
 
-		script.follotSpeed = EditorGUILayout.FloatField(new GUIContent("Follow Speed", "Speed of camera movement when following the target"), script.follotSpeed > 0 ? script.follotSpeed : 0);
 		script.target = (Transform)EditorGUILayout.ObjectField(script.target, typeof(Transform));
 		EditorGUILayout.Space();
 

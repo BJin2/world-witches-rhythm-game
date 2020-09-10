@@ -19,8 +19,6 @@ public class CameraMovement : MonoBehaviour
 	public bool invertY = false;
 
 	[HideInInspector]
-	public float follotSpeed = 5.0f;
-	[HideInInspector]
 	public Transform target = null;
 
 	[HideInInspector]
@@ -48,6 +46,8 @@ public class CameraMovement : MonoBehaviour
 	public Vector3 lookDirection { get { return transform.forward; } }
 	public Vector3 rightDirection { get { return transform.right; } }
 
+	private float followSpeed = 0.0f;
+
 	private void Awake()
 	{
 		prevPosition = Input.mousePosition;
@@ -58,6 +58,23 @@ public class CameraMovement : MonoBehaviour
 
 	private void Update()
 	{
+		Rotate();
+		Follow();
+	}
+
+	private void Follow()
+	{
+		float distance = Vector3.Distance(transform.position, target.position);
+		Vector3 direction = (target.position - transform.position).normalized;
+		if (distance > 0.1f)
+		{
+			followSpeed = Mathf.Pow(distance, 3);
+			transform.position += direction * followSpeed * Time.deltaTime;
+		}
+	}
+
+	private void Rotate()
+	{
 		switch (controlType)
 		{
 			case ControlType.Mouse:
@@ -67,7 +84,7 @@ public class CameraMovement : MonoBehaviour
 				prevPosition = current;
 				break;
 			case ControlType.Keyboard:
-				
+
 				if (Input.GetKey(KeyCode.UpArrow))
 				{
 					yDelta = 10.0f;
@@ -103,7 +120,7 @@ public class CameraMovement : MonoBehaviour
 
 			rotationX = AngleClamp(rotationX, xAxisMinLimit, xAxisMaxLimit);
 			rotationY = AngleClamp(rotationY, yAxisMinLimit, yAxisMaxLimit);
-			
+
 			transform.localEulerAngles = new Vector3(rotationX, rotationY, transform.localEulerAngles.z);
 		}
 	}
