@@ -32,20 +32,20 @@ public class BaseCharacter : MonoBehaviour
 		direction = Vector3.zero;
 		if (Input.GetKey(KeyCode.W))
 		{
-			direction = followingCam.lookDirection;
+			direction = followingCam.LookDirection;
 		}
 		else if (Input.GetKey(KeyCode.S))
 		{
-			direction = followingCam.lookDirection * -1;
+			direction = followingCam.LookDirection * -1;
 		}
 
 		if (Input.GetKey(KeyCode.D))
 		{
-			direction += followingCam.rightDirection;
+			direction += followingCam.RightDirection;
 		}
 		else if (Input.GetKey(KeyCode.A))
 		{
-			direction -= followingCam.rightDirection;
+			direction -= followingCam.RightDirection;
 		}
 
 

@@ -45,8 +45,8 @@ public class CameraMovement : MonoBehaviour
 	[HideInInspector]
 	public float invertYMultiplier = 1.0f;
 
-	public Vector3 lookDirection { get { return transform.forward; } }
-	public Vector3 rightDirection { get { return transform.right; } }
+	public Vector3 LookDirection { get { return transform.forward; } }
+	public Vector3 RightDirection { get { return transform.right; } }
 
 	private float followSpeed = 0.0f;
 
