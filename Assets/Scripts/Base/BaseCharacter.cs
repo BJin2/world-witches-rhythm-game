@@ -6,7 +6,8 @@ public class BaseCharacter : MonoBehaviour
 {
 	[SerializeField]
 	private float moveSpeed = 1.0f;
-	private float rotateSpeed;
+	[SerializeField]
+	private float rotateSpeed = 1.0f;
 
 	private Vector3 direction;
 	private CameraMovement followingCam;
@@ -37,8 +38,16 @@ public class BaseCharacter : MonoBehaviour
 			direction -= followingCam.rightDirection;
 		}
 
-		direction = new Vector3(direction.x, 0.0f, direction.z);
-		direction.Normalize();
-		transform.position += direction * moveSpeed * Time.deltaTime;
+		
+
+		if (direction != Vector3.zero)
+		{
+			//Play animation
+			direction = new Vector3(direction.x, transform.position.y, direction.z);
+			direction.Normalize();
+			Quaternion look = Quaternion.LookRotation(direction, Vector3.up);
+			transform.rotation = Quaternion.Slerp(transform.rotation, look, rotateSpeed * Time.deltaTime);
+			transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+		}
 	}
 }
