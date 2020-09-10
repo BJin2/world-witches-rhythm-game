@@ -123,7 +123,7 @@ public class CameraMovement : MonoBehaviour
 			rotationX = AngleClamp(rotationX, xAxisMinLimit, xAxisMaxLimit);
 			rotationY = AngleClamp(rotationY, yAxisMinLimit, yAxisMaxLimit);
 
-			transform.localEulerAngles = new Vector3(rotationX, rotationY, transform.localEulerAngles.z);
+			transform.localEulerAngles = new Vector3(rotationX, rotationY, 0.0f);
 		}
 	}
 
