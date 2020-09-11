@@ -26,12 +26,6 @@ public class Hangar : KeyAction
 		UIEnable(true);
 	}
 
-	//This function will be called by UI button or keyboard shortcut
-	public void TurnOffFormation()
-	{
-		UIEnable(true);
-	}
-
 	private void UIEnable(bool enable)
 	{
 		//Diable other scripts that processes input
@@ -49,4 +43,32 @@ public class Hangar : KeyAction
 	{
 		//Clear flight member slots
 	}
+
+	#region Functions for member selection
+
+	public void ConfirmMember()
+	{
+		//Check all slots are filled
+
+		AsyncSceneLoader.LoadAsyncAdditive("Gameplay", this);
+	}
+
+	public void SelectCharacter(string name)
+	{
+		//Check if the character is already selected
+		//Then swap
+
+		//Otherwise set it to member slot
+
+		//If empty string, empty the slot
+		//Close Character selection window
+		GameObject.Find("CharacterList").SetActive(false);
+	}
+
+	public void CloseWindow(GameObject toClose)
+	{
+		toClose.SetActive(false);
+	}
+
+#endregion
 }
