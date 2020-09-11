@@ -82,15 +82,18 @@ public class Hangar : KeyAction
 
 	public void SelectCharacter(string name)
 	{
-		//Current slot is already occupied or selected character already exist
-		for (int i = 0; i < CharacterInfo.flightMember.Count; i++)
+		if (name != "")
 		{
-			if (CharacterInfo.flightMember[i] == name)
+			//Current slot is already occupied or selected character already exist
+			for (int i = 0; i < CharacterInfo.flightMember.Count; i++)
 			{
-				//Swap
-				CharacterInfo.flightMember[i] = CharacterInfo.flightMember[CharacterInfo.currentMemberIndex];
-				UpdateProfile(i);
-				break;
+				if (CharacterInfo.flightMember[i] == name)
+				{
+					//Swap
+					CharacterInfo.flightMember[i] = CharacterInfo.flightMember[CharacterInfo.currentMemberIndex];
+					UpdateProfile(i);
+					break;
+				}
 			}
 		}
 
