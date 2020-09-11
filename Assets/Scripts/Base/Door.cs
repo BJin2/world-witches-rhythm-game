@@ -6,7 +6,7 @@ public class Door : KeyAction
 {
 	private bool opened = false;
 	[SerializeField]
-	private List<Transform> hinges;
+	private List<Transform> hinges = null;
 	[SerializeField]
 	private float doorOpenAngle = 120.0f;
 	[SerializeField]
@@ -14,7 +14,8 @@ public class Door : KeyAction
 
 	protected override void OnTriggerEnter(Collider col)
 	{
-		InstructionTrigger(col.GetComponent<BaseCharacter>(), true, new TriggeredAction(Open), KeyCode.E, "Open");
+		string action = opened ? "Close" : "Open";
+		InstructionTrigger(col.GetComponent<BaseCharacter>(), true, new TriggeredAction(Open), KeyCode.E, action);
 	}
 
 	protected override void OnTriggerExit(Collider col)
@@ -33,6 +34,7 @@ public class Door : KeyAction
 				StartCoroutine(AngleToward(hinge, 0.0f));
 			}
 			opened = false;
+			ChangeActionText("Open");
 		}
 		else
 		{
@@ -43,6 +45,7 @@ public class Door : KeyAction
 				doorDirection *= -1;
 			}
 			opened = true;
+			ChangeActionText("Close");
 		}
 	}
 
@@ -54,7 +57,7 @@ public class Door : KeyAction
 		//Rotate toward angle 0->angle or angle->0
 		while (Mathf.Abs(target.localEulerAngles.y - angle) >= 0.1f)
 		{
-			Debug.Log(target.name + " Opening " + target.localEulerAngles.y);
+			//Debug.Log(target.name + " Opening " + target.localEulerAngles.y);
 			target.localRotation = Quaternion.Lerp(target.localRotation, targetRot, openSpeed * Time.deltaTime);
 			yield return null;
 		}

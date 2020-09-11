@@ -52,10 +52,10 @@ MonoBehaviour:
   m_AdvancedMode: 0
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.8242118, y: 0.78924197, z: 1, w: 0}
+    m_Value: {x: 0.7807212, y: 0.8367814, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.9386101, y: 1, z: 0.9736474, w: 0}
+    m_Value: {x: 0.9402347, y: 1, z: 0.97777617, w: 0}
   gain:
     m_OverrideState: 1
     m_Value: {x: 0.90925765, y: 0.9828795, z: 1, w: 0}
@@ -94,16 +94,16 @@ MonoBehaviour:
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 18.6
+    m_Value: 13
     min: 0.1
   aperture:
     m_OverrideState: 1
-    m_Value: 7.3
+    m_Value: 2.1
     min: 1
     max: 32
   focalLength:
     m_OverrideState: 1
-    m_Value: 245
+    m_Value: 291
     min: 1
     max: 300
   bladeCount:
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 1
-    m_Value: 1.07
+    m_Value: 1.31
   contrast:
     m_OverrideState: 1
     m_Value: -11
@@ -156,7 +156,7 @@ MonoBehaviour:
     max: 180
   saturation:
     m_OverrideState: 1
-    m_Value: -9
+    m_Value: 67
     min: -100
     max: 100
 --- !u!114 &-4337720165347421476
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Global Volume Profile
+  m_Name: Base Volume Profile
   m_EditorClassIdentifier: 
   components:
   - {fileID: -4337720165347421476}
@@ -212,12 +212,12 @@ MonoBehaviour:
   m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
-    m_Value: -16
+    m_Value: -5
     min: -100
     max: 100
   tint:
     m_OverrideState: 1
-    m_Value: 13
+    m_Value: 23
     min: -100
     max: 100
 --- !u!114 &2973333625107853355
@@ -236,11 +236,11 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.82
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.35
+    m_Value: 0.3
     min: 0
   scatter:
     m_OverrideState: 1
@@ -253,7 +253,7 @@ MonoBehaviour:
     min: 0
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 1, g: 0.97143966, b: 0.9386792, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1

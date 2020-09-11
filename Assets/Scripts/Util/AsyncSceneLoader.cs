@@ -34,7 +34,7 @@ public class AsyncSceneLoader
 
 
 			watch.Stop();
-			Debug.Log((watch.ElapsedMilliseconds / 1000.0f));
+			//Debug.Log("Loading time : "+(watch.ElapsedMilliseconds / 1000.0f));
 		};
 
 		//While loading(every frame)
@@ -43,7 +43,7 @@ public class AsyncSceneLoader
 			//Update loading bar
 			float progress = Mathf.Clamp01(async.progress / 0.9f);
 			loadingBar.value = progress;
-			Debug.Log(progress);
+			//Debug.Log(progress);
 			yield return null;
 		}
 	}
