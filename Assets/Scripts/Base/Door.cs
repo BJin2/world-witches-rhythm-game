@@ -6,7 +6,7 @@ public class Door : KeyAction
 {
 	private bool opened = false;
 	[SerializeField]
-	private List<Transform> hinges;
+	private List<Transform> hinges = null;
 	[SerializeField]
 	private float doorOpenAngle = 120.0f;
 	[SerializeField]

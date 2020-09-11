@@ -22,9 +22,11 @@ public abstract class KeyAction : MonoBehaviour
 		if (!target)
 			return;
 
+		instructionUI.SetActive(on);
+
 		if (on)
 		{
-			instructionUI.SetActive(true);
+			
 			keyText.text = key.ToString();
 			actionText.text = action;
 			target.AssignAction(key, triggeredAction);
@@ -35,9 +37,6 @@ public abstract class KeyAction : MonoBehaviour
 				return;
 
 			target.AssignAction(KeyCode.None, null);
-			keyText.text = "";
-			actionText.text = "";
-			instructionUI.SetActive(false);
 		}
 	}
 
