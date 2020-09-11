@@ -14,10 +14,7 @@ public class AsyncSceneLoader
 
 	private static IEnumerator LoadSceneAsyncAdditive(string sceneName)
 	{
-		var watch = System.Diagnostics.Stopwatch.StartNew();
-
-
-
+		//var watch = System.Diagnostics.Stopwatch.StartNew();
 		//Create Loading UI
 		Slider loadingBar = CreateLoadingScreen();
 
@@ -33,7 +30,7 @@ public class AsyncSceneLoader
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
 
 
-			watch.Stop();
+			//watch.Stop();
 			//Debug.Log("Loading time : "+(watch.ElapsedMilliseconds / 1000.0f));
 		};
 

@@ -18,7 +18,7 @@ public class BaseCharacter : MonoBehaviour
 	public GameObject test;
 
 
-	private void Awake()
+	private void Start()
 	{
 		followingCam = Camera.main.GetComponentInParent<CameraMovement>();
 		//test.GetComponent<MeshRenderer>().material.color = new Color(255, 0, 0, 1);
