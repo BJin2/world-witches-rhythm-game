@@ -2142,7 +2142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a0724335f4d7a44b13429f77b119f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlType: 1
+  controlType: 0
   sensitivity: 5
   invertY: 0
   target: {fileID: 2007215462}
@@ -3834,7 +3834,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 285fba08c0bc007418efc6c09ecda2ce, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 31cab066a255bb144b25993ff016f686, type: 2}
 --- !u!4 &1360345686
 Transform:
   m_ObjectHideFlags: 0
@@ -6481,7 +6481,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007215459}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.37}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1623736679}
@@ -6502,6 +6502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   rotateSpeed: 10
+  test: {fileID: 1623736674}
 --- !u!1 &2028525621
 GameObject:
   m_ObjectHideFlags: 0
