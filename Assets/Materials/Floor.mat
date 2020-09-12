@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Floor
-  m_Shader: {fileID: -6465566751694194690, guid: d5aef07498c0b4d40a86a9bfe1be0c79, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f3c2e99b6ca6ef445a99ae3e8f28f090, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,7 +19,15 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_228C724B:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_AF77B0DC:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_BA182D1C:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -52,8 +60,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_3D447868: 0
+    - Vector1_1DA5FEDC: 0.03
+    - Vector1_3B37C715: 0.5
     - Vector1_40EFBC0: 0.27
+    - Vector1_531370C0: 0.27
     - Vector1_715C6F22: 0.05
+    - Vector1_761D7929: 0
+    - Vector1_7EAEEFF5: 0.05
+    - Vector1_B885DAA0: 0.5
+    - Vector1_CA8E73F8: 0
+    - Vector1_D7B6D9EC: 0
     - Vector1_F051F621: 0.03
     - _AlphaClip: 0
     - _Blend: 0
@@ -80,6 +97,11 @@ Material:
     - Color_3246F827: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 0}
     - Color_727C0F12: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0}
     - Color_7EA4B79D: {r: 1, g: 1, b: 1, a: 1}
+    - Color_88B57B20: {r: 1, g: 1, b: 1, a: 0}
+    - Color_9C759270: {r: 1, g: 1, b: 1, a: 1}
+    - Color_A77CF563: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 0}
+    - Color_B03E369D: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 0}
+    - Color_EEC2CD91: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
