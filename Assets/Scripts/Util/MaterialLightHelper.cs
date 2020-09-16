@@ -74,7 +74,14 @@ public class MaterialLightHelper : MonoBehaviour
 			lights = FindObjectsOfType<Light>().ToList();
 		}
 
-		//Compare and organize light data
+		//Compare and remove light data
+		/*
+		 * About existingLightID initialization timing.
+		 *	1. ID of newly added lights will definitely be in newLightID 
+		 *		so it is not necessary to add the same thing to existingLightID
+		 *	2. Less items lead to less iteration(actully it's so small number of items so it barely affect the performance)
+		 *	3. List declarations at the same place for better legibility
+		 */
 		List<int> newLightID = new List<int>();
 		List<int> existingLightID = new List<int>(lightDatas.Keys);
 
