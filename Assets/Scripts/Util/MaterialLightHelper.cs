@@ -28,6 +28,7 @@ public struct LightData
 public class MaterialLightHelper : MonoBehaviour
 {
     public Material material = null;
+	private Material materialInstance = null;
 
     [HideInInspector]
     public bool instanceMaterial = true;
@@ -43,25 +44,45 @@ public class MaterialLightHelper : MonoBehaviour
 
 	private void OnValidate()
 	{
-		
+		Init();
 	}
 
 	private void Start()
 	{
-		
+		Init();
 	}
 
 	private void Update()
 	{
-		UpdateLights();
-		//UpdateMaterial();
+		//Update light only when it's not playing
+		if(!Application.isEditor && !Application.isPlaying)
+			UpdateLights();
+		UpdateMaterial();
 	}
 
 	private void Init()
 	{
+		if (!material)
+			return;
 
+		//Instance
+		if (instanceMaterial)
+		{
+			materialInstance = new Material(material);
+			materialInstance.name = material.name + "(Copy)";
+		}
+		else
+		{
+			materialInstance = material;
+		}
+
+		//Renderer
+
+		Update();
 	}
-	private void UpdateLights()
+
+	//Call manually when light has added or removed dynamically
+	public void UpdateLights()
 	{
 		//initialize lightDatas dictionary if not initialized
 		if (lightDatas == null)
@@ -85,14 +106,19 @@ public class MaterialLightHelper : MonoBehaviour
 		List<int> newLightID = new List<int>();
 		List<int> existingLightID = new List<int>(lightDatas.Keys);
 
+		List<int> toRemoveIndex = new List<int>();
+		int index = -1;
+
 		//Add new light data
 		foreach (Light light in lights)
 		{
+			index++;
 			int id;
 
 			//No further process if the light is removed (this part is for manual light only)
 			if (IsMissing(light, out id))
 			{
+				toRemoveIndex.Add(index);
 				continue;
 			}
 
@@ -100,6 +126,14 @@ public class MaterialLightHelper : MonoBehaviour
 			if (!lightDatas.ContainsKey(id))
 			{
 				lightDatas.Add(id, new LightData(light));
+			}
+		}
+
+		if (Application.isPlaying)
+		{
+			foreach (int i in toRemoveIndex)
+			{
+				lights.RemoveAt(i);
 			}
 		}
 
@@ -112,6 +146,7 @@ public class MaterialLightHelper : MonoBehaviour
 			}
 		}
 	}
+
 	private void UpdateMaterial()
 	{
 
