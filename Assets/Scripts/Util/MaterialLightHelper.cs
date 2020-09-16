@@ -53,7 +53,7 @@ public class MaterialLightHelper : MonoBehaviour
 
 	private void Update()
 	{
-		//UpdateLights();
+		UpdateLights();
 		//UpdateMaterial();
 	}
 
@@ -63,50 +63,45 @@ public class MaterialLightHelper : MonoBehaviour
 	}
 	private void UpdateLights()
 	{
+		//initialize lightDatas dictionary if not initialized
 		if (lightDatas == null)
 		{
 			lightDatas = new Dictionary<int, LightData>();
 		}
 
-		if (manualLights) // Does not update lights automatically
+		if (!manualLights) // Update lights
 		{
-			foreach (Light light in lights)
-			{
-				if (IsMissing(light))
-				{
-					lights.Remove(light);
-					continue;
-				}
-
-				int id = light.GetInstanceID();
-				if (!lightDatas.ContainsKey(id))
-				{
-					lightDatas.Add(id, new LightData(light));
-				}
-			}
-		}
-		else
-		{
-			//Find lights
 			lights = FindObjectsOfType<Light>().ToList();
+		}
 
-			//Add if not in light datas
-			foreach (Light light in lights)
+		//Compare and organize light data
+		List<int> newLightID = new List<int>();
+		List<int> existingLightID = new List<int>(lightDatas.Keys);
+
+		//Add new light data
+		foreach (Light light in lights)
+		{
+			int id;
+
+			//No further process if the light is removed (this part is for manual light only)
+			if (IsMissing(light, out id))
 			{
-				int id = light.GetInstanceID();
-				if (!lightDatas.ContainsKey(id))
-				{
-					lightDatas.Add(id, new LightData(light));
-				}
+				continue;
+			}
+
+			newLightID.Add(id);
+			if (!lightDatas.ContainsKey(id))
+			{
+				lightDatas.Add(id, new LightData(light));
 			}
 		}
 
-		//Remove from light datas if light does not exist
-		foreach (KeyValuePair<int, LightData> ld in lightDatas)
+		//Remove light datas if light does not exist
+		foreach (int id in existingLightID)
 		{
-			if (!lights.Contains(ld.Value.light))
+			if (!newLightID.Contains(id))
 			{
-				lightDatas.Remove(ld.Key);
+				lightDatas.Remove(id);
 			}
 		}
 	}
@@ -115,11 +110,31 @@ public class MaterialLightHelper : MonoBehaviour
 
 	}
 
-	private bool IsMissing(UnityEngine.Object obj)
+	private bool IsMissing(UnityEngine.Object obj, out int id)
 	{
+		id = int.MinValue;
+
+		if (obj == null)
+			return true;
+
 		try
 		{
-			obj.GetInstanceID();
+			id = obj.GetInstanceID();
+			return false;
+		}
+		catch
+		{	
+			return true;
+		}
+	}
+
+	private bool IsMissing(UnityEngine.Object obj)
+	{
+		if (obj == null)
+			return true;
+
+		try
+		{
 			return false;
 		}
 		catch
