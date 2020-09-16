@@ -20,7 +20,7 @@ public class MaterialLightHelper_Editor : Editor
 	public override void OnInspectorGUI()
 	{
 		base.OnInspectorGUI();
-
+		serializedObject.Update();
 		MaterialLightHelper script = (MaterialLightHelper)target;
 
 		if (script.material)

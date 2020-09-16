@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public struct LightData
 {
@@ -36,8 +36,10 @@ public class MaterialLightHelper : MonoBehaviour
     [HideInInspector]
     public int maxLights = 6;
     [HideInInspector]
-    public Light[] lights;
+    public List<Light> lights = null;
+	private Dictionary<int, LightData> lightDatas = null;
 
+	private delegate void ForEachLight();
 
 	private void OnValidate()
 	{
@@ -51,19 +53,86 @@ public class MaterialLightHelper : MonoBehaviour
 
 	private void Update()
 	{
-		
+		//UpdateLights();
+		//UpdateMaterial();
 	}
 
 	private void Init()
 	{
 
 	}
-	private void GetLights()
+	private void UpdateLights()
 	{
+		if (lightDatas == null)
+		{
+			lightDatas = new Dictionary<int, LightData>();
+		}
 
+		if (manualLights) // Does not update lights automatically
+		{
+			foreach (Light light in lights)
+			{
+				if (IsMissing(light))
+				{
+					lights.Remove(light);
+					continue;
+				}
+
+				int id = light.GetInstanceID();
+				if (!lightDatas.ContainsKey(id))
+				{
+					lightDatas.Add(id, new LightData(light));
+				}
+			}
+		}
+		else
+		{
+			//Find lights
+			lights = FindObjectsOfType<Light>().ToList();
+
+			//Add if not in light datas
+			foreach (Light light in lights)
+			{
+				int id = light.GetInstanceID();
+				if (!lightDatas.ContainsKey(id))
+				{
+					lightDatas.Add(id, new LightData(light));
+				}
+			}
+		}
+
+		//Remove from light datas if light does not exist
+		foreach (KeyValuePair<int, LightData> ld in lightDatas)
+		{
+			if (!lights.Contains(ld.Value.light))
+			{
+				lightDatas.Remove(ld.Key);
+			}
+		}
 	}
 	private void UpdateMaterial()
 	{
 
 	}
+
+	private bool IsMissing(UnityEngine.Object obj)
+	{
+		try
+		{
+			obj.GetInstanceID();
+			return false;
+		}
+		catch
+		{
+			return true;
+		}
 	}
+
+	private void EachLight(ForEachLight forEachLight)
+	{
+		foreach (Light light in lights)
+		{
+			forEachLight();
+		}
+	}
+}
