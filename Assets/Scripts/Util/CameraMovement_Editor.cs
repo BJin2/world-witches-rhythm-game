@@ -58,6 +58,17 @@ public class CameraMovement_Editor : Editor
 			script.yAxisMaxLimit = EditorGUILayout.FloatField(new GUIContent("Y Axis Maximun Limit", "Maximun degree for Y axis rotation"), max);
 			script.yAxisMinLimit = EditorGUILayout.FloatField(new GUIContent("Y Axis Minimun Limit", "Minimun degree for Y axis rotation"), min);
 		}
+		EditorGUILayout.Space();
+
+		EditorGUI.indentLevel = 0;
+		script.flexibleDistance = EditorGUILayout.Toggle(new GUIContent("Flexible Distance", "Camera moves closer if sight is blocked"), script.flexibleDistance);
+		script.zoom = EditorGUILayout.Toggle(new GUIContent("Zoom", "Camera moves closer on input"), script.zoom);
+		if (script.zoom)
+		{
+			EditorGUI.indentLevel = 1;
+			script.minimumDistance = EditorGUILayout.FloatField(new GUIContent("Minimum Distance"), script.minimumDistance);
+			script.maximumDistance = EditorGUILayout.FloatField(new GUIContent("Maximum Distance"), script.maximumDistance);
+		}
 	}
 }
 #endif
