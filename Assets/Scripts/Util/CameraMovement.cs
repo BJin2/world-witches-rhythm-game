@@ -35,43 +35,56 @@ public class CameraMovement : MonoBehaviour
 	public float yAxisMaxLimit = 0;
 	[HideInInspector]
 	public float yAxisMinLimit = 0;
-#endregion
+
+	[HideInInspector]
+	public float invertYMultiplier = 1.0f;
+
+	[HideInInspector]
+	public LayerMask obstacleLayer;
+	#endregion
 
 	private float xDelta = 0;
 	private float yDelta = 0;
 
 	private Vector3 prevPosition;
 
-	[HideInInspector]
-	public float invertYMultiplier = 1.0f;
-
 	public Vector3 LookDirection { get { return transform.forward; } }
 	public Vector3 RightDirection { get { return transform.right; } }
 
 	private float followSpeed = 0.0f;
+
+	private Transform cam;
+	private Vector3 originalOffset;
 
 	private void Awake()
 	{
 		prevPosition = Input.mousePosition;
 		xDelta = 0;
 		yDelta = 0;
+		cam = GetComponentInChildren<Camera>().transform;
+		originalOffset = cam.localPosition;
 	}
 
 
 	private void Update()
 	{
 		Rotate();
-		Follow();
+		Follow(transform, target);
+		FlexibleDistance();
 	}
 
-	private void Follow()
+	private void Follow(Transform moving, Transform to)
 	{
-		float distance = Vector3.Distance(transform.position, target.position);
-		Vector3 direction = (target.position - transform.position).normalized;
+		Follow(moving, to.position, 3.0f);
+	}
+	private void Follow(Transform moving, Vector3 to, float power)
+	{
+		float distance = Vector3.Distance(moving.position, to);
+		Vector3 direction = (to - moving.position).normalized;
 		if (distance > 0.1f)
 		{
-			followSpeed = Mathf.Pow(distance, 3);
-			transform.position += direction * followSpeed * Time.deltaTime;
+			followSpeed = Mathf.Pow(distance, power);
+			moving.position += direction * followSpeed * Time.deltaTime;
 		}
 	}
 
@@ -124,6 +137,22 @@ public class CameraMovement : MonoBehaviour
 			rotationY = AngleClamp(rotationY, yAxisMinLimit, yAxisMaxLimit);
 
 			transform.localEulerAngles = new Vector3(rotationX, rotationY, 0.0f);
+		}
+	}
+
+	private void FlexibleDistance()
+	{
+		Vector3 origin = target.position + new Vector3(0, 0.1f, 0);
+		Vector3 dir = cam.position - origin;
+		if (Physics.Raycast(origin, dir, out RaycastHit hit, originalOffset.magnitude*2, obstacleLayer))
+		{
+			Follow(cam, hit.point, 2.0f);
+			Debug.DrawRay(origin, dir.normalized * hit.distance, Color.red);
+		}
+		else
+		{
+			Follow(cam, transform.TransformPoint(originalOffset), 1.5f);
+			Debug.DrawRay(origin, dir.normalized * originalOffset.magnitude * 2, Color.green);
 		}
 	}
 

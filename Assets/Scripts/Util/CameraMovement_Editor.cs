@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditorInternal;
 #endif
 
 #if UNITY_EDITOR
@@ -14,6 +15,7 @@ public class CameraMovement_Editor : Editor
 		CameraMovement script = (CameraMovement)target;
 
 		script.controlType = (CameraMovement.ControlType)EditorGUILayout.EnumPopup(new GUIContent("Control Type", "Select method of camera control"), script.controlType);
+		script.obstacleLayer = EditorGUILayout.MaskField(new GUIContent("Raycast Mask"), InternalEditorUtility.LayerMaskToConcatenatedLayersMask(script.obstacleLayer), InternalEditorUtility.layers);
 		EditorGUILayout.Space();
 
 		script.sensitivity = EditorGUILayout.FloatField(new GUIContent("Sensitivity", "Look sensitivity"), script.sensitivity > 0 ? script.sensitivity : 0);
