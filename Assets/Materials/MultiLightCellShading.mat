@@ -19,6 +19,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_4B46F801:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_C14C3BBC:
+        m_Texture: {fileID: 2800000, guid: 69d02717925f3ec45b7728d6d93ab20c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -48,6 +56,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_51AF0A88: 10
+    - Vector1_7A9D3DFA: 20
+    - Vector1_B39F63B7: -1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -70,11 +81,14 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_381944F9: {r: 1, g: 1, b: 1, a: 0}
+    - Color_7AAC5E32: {r: 1.216786, g: 1.216786, b: 1.216786, a: 0}
+    - Color_ADD4F70E: {r: 1.0592737, g: 1.0592737, b: 1.0592737, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _L1_color: {r: 0, g: 0, b: 0, a: 0}
-    - _L1_dir: {r: 0, g: 0, b: 0, a: 0}
+    - _L1_color: {r: 0, g: 0, b: 0, a: 1}
+    - _L1_dir: {r: 0, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &725175109549402704

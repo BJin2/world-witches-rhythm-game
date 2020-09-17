@@ -66,6 +66,7 @@ public class MaterialLightHelper : MonoBehaviour
 	private void Start()
 	{
 		Init();
+		
 	}
 
 	private void Update()
@@ -124,6 +125,7 @@ public class MaterialLightHelper : MonoBehaviour
 			}
 		}
 
+		UpdateLights();
 		Update();
 	}
 
