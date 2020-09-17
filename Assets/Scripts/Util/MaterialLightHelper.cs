@@ -37,18 +37,26 @@ public class MaterialLightHelper : MonoBehaviour
 {
 	public bool autoTarget = false;
 	public MaterialTarget[] targets = null;
-
+	
+	private Vector3 center = Vector3.zero;//average vector of target positions
 	private Material[] materialInstance = null;
+	private Dictionary<int, LightData> lightDatas = null;
 
-    [HideInInspector]
+	[HideInInspector]
     public bool instanceMaterial = true;
     [HideInInspector]
-    public bool manualLights = false;
-    [HideInInspector]
     public int maxLights = 6;
-    [HideInInspector]
+	[HideInInspector]
+	public bool manualLights = false;
+	[HideInInspector]
     public List<Light> lights = null;
-	private Dictionary<int, LightData> lightDatas = null;	
+
+	[HideInInspector]
+	public bool raycast = true;
+	[HideInInspector]
+	public LayerMask raycastMask = new LayerMask();
+	[HideInInspector]
+	public float raycastFadeSpeed = 10.0f;
 
 	private void OnValidate()
 	{
@@ -62,6 +70,10 @@ public class MaterialLightHelper : MonoBehaviour
 
 	private void Update()
 	{
+		if (targets.Length == 0)
+			return;
+
+		center = CalculateCenter();
 		//Update light only when it's not playing
 		if(!Application.isEditor && !Application.isPlaying)
 			UpdateLights();
@@ -80,9 +92,11 @@ public class MaterialLightHelper : MonoBehaviour
 			targets = new MaterialTarget[renderers.Length];
 			for (int i = 0; i < renderers.Length; i++)
 			{
-				targets[i] = new MaterialTarget();
-				targets[i].renderer = renderers[i];
-				targets[i].material = null;
+				targets[i] = new MaterialTarget
+				{
+					renderer = renderers[i],
+					material = null
+				};
 			}
 		}
 
@@ -95,8 +109,10 @@ public class MaterialLightHelper : MonoBehaviour
 			{
 				if (instanceMaterial)
 				{
-					materialInstance[i] = new Material(targets[i].material);
-					materialInstance[i].name = targets[i].material.name + "(Copy)";
+					materialInstance[i] = new Material(targets[i].material)
+					{
+						name = targets[i].material.name + "(Copy)"
+					};
 				}
 				else
 				{
@@ -140,10 +156,9 @@ public class MaterialLightHelper : MonoBehaviour
 		foreach (Light light in lights)
 		{
 			index++;
-			int id;
 
 			//No further process if the light is removed (this part is for manual light only)
-			if (IsMissing(light, out id))
+			if (IsMissing(light, out int id))
 			{
 				toRemoveIndex.Add(index);
 				continue;
@@ -174,17 +189,156 @@ public class MaterialLightHelper : MonoBehaviour
 		}
 	}
 
-	private LightData UpdateLightData(LightData data)
-	{
-		return new LightData();
-	}
-
-	private void UpdateMaterial()
+	void UpdateMaterial()
 	{
 		if (targets.Length == 0)
 			return;
 
+		// Sort lights by brightness
+		List<LightData> sortedLights = new List<LightData>();
+		if (lightDatas != null)
+		{
+			foreach (LightData lightData in lightDatas.Values)
+			{
+				sortedLights.Add(UpdateLightData(lightData));
+			}
+		}
+		sortedLights.Sort((x, y) => {
+			float yBrightness = y.color.grayscale * y.atten;
+			float xBrightness = x.color.grayscale * x.atten;
+			return yBrightness.CompareTo(xBrightness);
+		});
 
+		// Apply lighting
+		int i = 1;
+		foreach (LightData lightData in sortedLights)
+		{
+			if (i > maxLights) break;
+			if (lightData.atten <= Mathf.Epsilon) break;
+
+			// Use color Alpha to pass attenuation data
+			Color color = lightData.color;
+			color.a = Mathf.Clamp(lightData.atten, 0.01f, 0.99f); // UV might wrap around if attenuation is >1 or 0<
+
+			foreach (Material instance in materialInstance)
+			{
+				if (instance == null)
+					continue;
+				instance.SetVector($"_L{i}_dir", lightData.direction.normalized);
+				instance.SetColor($"_L{i}_color", color);
+			}
+			i++;
+		}
+
+		// Turn off the remaining light slots
+		while (i <= maxLights)
+		{
+			foreach (Material instance in materialInstance)
+			{
+				if (instance == null)
+					continue;
+				instance.SetVector($"_L{i}_dir", Vector3.up);
+				instance.SetColor($"_L{i}_color", Color.black);
+			}
+			i++;
+		}
+
+		// Store updated light data
+		foreach (LightData lightData in sortedLights)
+		{
+			lightDatas[lightData.id] = lightData;
+		}
+	}
+
+	float TestInView(Vector3 dir, float dist)
+	{
+		if (!raycast) return 1.1f;
+		if (Physics.Raycast(center, dir, out RaycastHit hit, dist, raycastMask))
+		{
+			Debug.DrawRay(center, dir.normalized * hit.distance, Color.red);
+			return -0.1f;
+		}
+		else
+		{
+			Debug.DrawRay(center, dir.normalized * dist, Color.green);
+			return 1.1f;
+		}
+	}
+
+	// Ref - Light Attenuation calc: https://forum.unity.com/threads/light-attentuation-equation.16006/#post-3354254
+	float CalcAttenuation(float dist)
+	{
+		return Mathf.Clamp01(1.0f / (1.0f + 25f * dist * dist) * Mathf.Clamp01((1f - dist) * 5f));
+	}
+
+	LightData UpdateLightData(LightData lightData)
+	{
+		Light light = lightData.light;
+		float inView = 1.1f;
+		float dist;
+
+		if (!light.isActiveAndEnabled)
+		{
+			lightData.atten = 0f;
+			return lightData;
+		}
+
+		switch (light.type)
+		{
+			case LightType.Directional:
+				lightData.direction = light.transform.forward * -1f;
+				inView = TestInView(lightData.direction, 100f);
+				lightData.color = light.color * light.intensity;
+				lightData.atten = 1f;
+				break;
+
+			case LightType.Point:
+				lightData.direction = light.transform.position - center;
+				dist = Mathf.Clamp01(lightData.direction.magnitude / light.range);
+				inView = TestInView(lightData.direction, lightData.direction.magnitude);
+				lightData.atten = CalcAttenuation(dist);
+				lightData.color = light.color * lightData.atten * light.intensity * 0.1f;
+				break;
+
+			case LightType.Spot:
+				lightData.direction = light.transform.position - center;
+				dist = Mathf.Clamp01(lightData.direction.magnitude / light.range);
+				float angle = Vector3.Angle(light.transform.forward * -1f, lightData.direction.normalized);
+				float inFront = Mathf.Lerp(0f, 1f, (light.spotAngle - angle * 2f) / lightData.direction.magnitude); // More edge fade when far away from light source
+				inView = inFront * TestInView(lightData.direction, lightData.direction.magnitude);
+				lightData.atten = CalcAttenuation(dist);
+				lightData.color = light.color * lightData.atten * light.intensity * 0.05f;
+				break;
+
+			default:
+				Debug.Log(light.type + " not supported");
+				lightData.atten = 0f;
+				break;
+		}
+
+		// Slowly fade lights on and off
+		float fadeSpeed = (Application.isEditor && !Application.isPlaying)
+			? raycastFadeSpeed / 60f
+			: raycastFadeSpeed * Time.deltaTime;
+
+		lightData.inView = Mathf.Lerp(lightData.inView, inView, fadeSpeed);
+		lightData.color *= Mathf.Clamp01(lightData.inView);
+
+		return lightData;
+	}
+
+	private Vector3 CalculateCenter()
+	{
+		Vector3 result = transform.position;
+
+		foreach (MaterialTarget mt in targets)
+		{
+			if (mt.renderer == null)
+				continue;
+			result += mt.renderer.transform.position;
+		}
+
+		return (result / (targets.Length+1));
 	}
 
 	private bool IsMissing(UnityEngine.Object obj, out int id)
@@ -201,21 +355,6 @@ public class MaterialLightHelper : MonoBehaviour
 		}
 		catch
 		{	
-			return true;
-		}
-	}
-
-	private bool IsMissing(UnityEngine.Object obj)
-	{
-		if (obj == null)
-			return true;
-
-		try
-		{
-			return false;
-		}
-		catch
-		{
 			return true;
 		}
 	}
