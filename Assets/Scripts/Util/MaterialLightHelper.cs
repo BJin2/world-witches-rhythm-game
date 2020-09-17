@@ -292,7 +292,7 @@ public class MaterialLightHelper : MonoBehaviour
 			case LightType.Directional:
 				lightData.direction = light.transform.forward * -1f;
 				inView = TestInView(lightData.direction, 100f);
-				lightData.color = light.color * light.intensity;
+				lightData.color = light.color * light.intensity * 0.25f;
 				lightData.atten = 1f;
 				break;
 
