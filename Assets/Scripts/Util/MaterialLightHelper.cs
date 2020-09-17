@@ -28,7 +28,7 @@ public struct LightData
 [Serializable]
 public class MaterialTarget
 {
-	public Material material;
+	public Material[] material;
 	public Renderer renderer;
 }
 
@@ -37,9 +37,9 @@ public class MaterialLightHelper : MonoBehaviour
 {
 	public bool autoTarget = false;
 	public MaterialTarget[] targets = null;
-	
+
 	private Vector3 center = Vector3.zero;//average vector of target positions
-	private Material[] materialInstance = null;
+	private Material[][] materialInstance = null;
 	private Dictionary<int, LightData> lightDatas = null;
 
 	[HideInInspector]
@@ -66,12 +66,11 @@ public class MaterialLightHelper : MonoBehaviour
 	private void Start()
 	{
 		Init();
-		
 	}
 
 	private void Update()
 	{
-		if (targets.Length == 0)
+		if (targets == null)
 			return;
 
 		center = CalculateCenter();
@@ -83,8 +82,9 @@ public class MaterialLightHelper : MonoBehaviour
 
 	private void Init()
 	{
+		//*/
 		//Material and Renderer (Helper targets)
-		if (targets.Length == 0)
+		if (targets == null || targets.Length == 0)
 		{
 			if (!autoTarget)
 				return;
@@ -100,33 +100,43 @@ public class MaterialLightHelper : MonoBehaviour
 				};
 			}
 		}
-
+		
 		//Material Instance
-		materialInstance = new Material[targets.Length];
+		materialInstance = new Material[targets.Length][];
 
+		//Every target with materials
 		for (int i = 0; i < targets.Length; i++)
 		{
 			if (targets[i].material != null)
 			{
-				if (instanceMaterial)
+				materialInstance[i] = new Material[targets[i].material.Length];
+
+				for (int j = 0; j < materialInstance[i].Length; j++)
 				{
-					materialInstance[i] = new Material(targets[i].material)
+					if (targets[i].material[j] == null)
+						continue;
+
+					if (instanceMaterial)
 					{
-						name = targets[i].material.name + "(Copy)"
-					};
-				}
-				else
-				{
-					materialInstance[i] = targets[i].material;
+						materialInstance[i][j] = new Material(targets[i].material[j])
+						{
+							name = targets[i].material[j].name + "(Copy)"
+						};
+					}
+					else
+					{
+						materialInstance[i][j] = targets[i].material[j];
+					}
 				}
 
 				if (targets[i].renderer)
-					targets[i].renderer.sharedMaterial = materialInstance[i];
+					targets[i].renderer.sharedMaterials = materialInstance[i];
 			}
 		}
 
 		UpdateLights();
 		Update();
+		//*/
 	}
 
 	//Call manually when light has added or removed dynamically
@@ -196,7 +206,7 @@ public class MaterialLightHelper : MonoBehaviour
 
 	void UpdateMaterial()
 	{
-		if (targets.Length == 0)
+		if (targets == null)
 			return;
 
 		// Sort lights by brightness
@@ -224,12 +234,17 @@ public class MaterialLightHelper : MonoBehaviour
 			// Use color Alpha to pass attenuation data
 			Color color = lightData.color;
 			color.a = Mathf.Clamp(lightData.atten, 0.01f, 0.99f); // UV might wrap around if attenuation is >1 or 0<
-			foreach (Material instance in materialInstance)
+			foreach (Material[] instances in materialInstance)
 			{
-				if (instance == null)
+				if (instances == null)
 					continue;
-				instance.SetVector($"_L{i}_dir", lightData.direction.normalized);
-				instance.SetColor($"_L{i}_color", color);
+				foreach (Material instance in instances)
+				{
+					if (instance == null)
+						continue;
+					instance.SetVector($"_L{i}_dir", lightData.direction.normalized);
+					instance.SetColor($"_L{i}_color", color);
+				}
 			}
 			i++;
 		}
@@ -237,12 +252,17 @@ public class MaterialLightHelper : MonoBehaviour
 		// Turn off the remaining light slots
 		while (i <= maxLights)
 		{
-			foreach (Material instance in materialInstance)
+			foreach (Material[] instances in materialInstance)
 			{
-				if (instance == null)
+				if (instances == null)
 					continue;
-				instance.SetVector($"_L{i}_dir", Vector3.up);
-				instance.SetColor($"_L{i}_color", Color.black);
+				foreach (Material instance in instances)
+				{
+					if (instance == null)
+						continue;
+					instance.SetVector($"_L{i}_dir", Vector3.up);
+					instance.SetColor($"_L{i}_color", Color.black);
+				}
 			}
 			i++;
 		}
@@ -292,7 +312,7 @@ public class MaterialLightHelper : MonoBehaviour
 			case LightType.Directional:
 				lightData.direction = light.transform.forward * -1f;
 				inView = TestInView(lightData.direction, 100f);
-				lightData.color = light.color * light.intensity * 0.25f;
+				lightData.color = light.color * light.intensity * 0.2f;
 				lightData.atten = 1f;
 				break;
 
@@ -360,6 +380,17 @@ public class MaterialLightHelper : MonoBehaviour
 		catch
 		{	
 			return true;
+		}
+	}
+
+	private void PrintInstance()
+	{
+		for (int i = 0; i < materialInstance.Length; i++)
+		{
+			for (int j = 0; j < materialInstance[i].Length; j++)
+			{
+				Debug.Log("materialInstance[" + i + "][" + j + "] : " + materialInstance[i][j]);
+			}
 		}
 	}
 }

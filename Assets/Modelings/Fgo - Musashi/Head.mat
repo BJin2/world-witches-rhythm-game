@@ -70,7 +70,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_51AF0A88: 10
-    - Vector1_7A9D3DFA: 20
+    - Vector1_7A9D3DFA: 11
     - Vector1_B39F63B7: -1
     - _AlphaClip: 0
     - _Blend: 0
@@ -96,21 +96,21 @@ Material:
     m_Colors:
     - Color_381944F9: {r: 1, g: 1, b: 1, a: 0}
     - Color_7AAC5E32: {r: 1.9999998, g: 1.9999998, b: 1.9999998, a: 0}
-    - Color_ADD4F70E: {r: 1.9999998, g: 1.9999998, b: 1.9999998, a: 0}
+    - Color_ADD4F70E: {r: 1.216786, g: 1.216786, b: 1.216786, a: 0}
     - _BaseColor: {r: 0.588, g: 0.588, b: 0.588, a: 1}
     - _Color: {r: 0.588, g: 0.588, b: 0.588, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _L1_color: {r: 0, g: 0, b: 0, a: 0}
-    - _L1_dir: {r: 0, g: 0, b: 0, a: 0}
-    - _L2_color: {r: 0, g: 0, b: 0, a: 0}
-    - _L2_dir: {r: 0, g: 0, b: 0, a: 0}
-    - _L3_color: {r: 0, g: 0, b: 0, a: 0}
-    - _L3_dir: {r: 0, g: 0, b: 0, a: 0}
-    - _L4_color: {r: 0, g: 0, b: 0, a: 0}
-    - _L4_dir: {r: 0, g: 0, b: 0, a: 0}
-    - _L5_color: {r: 0, g: 0, b: 0, a: 0}
-    - _L5_dir: {r: 0, g: 0, b: 0, a: 0}
-    - _L6_color: {r: 0, g: 0, b: 0, a: 0}
-    - _L6_dir: {r: 0, g: 0, b: 0, a: 0}
+    - _L1_color: {r: 0.8, g: 0.76549023, b: 0.6713726, a: 0.99}
+    - _L1_dir: {r: 0.013067452, g: 0.70555013, b: 0.7085395, a: 0}
+    - _L2_color: {r: 0.7704864, g: 0, b: 0, a: 0.3852432}
+    - _L2_dir: {r: 0.08233488, g: 0.99546003, b: -0.047753166, a: 0}
+    - _L3_color: {r: 0.18156607, g: 0.4229891, b: 0.196734, a: 0.26436818}
+    - _L3_dir: {r: -0.010780701, g: 0.905214, b: -0.4248193, a: 0}
+    - _L4_color: {r: 0, g: 0, b: 0, a: 1}
+    - _L4_dir: {r: 0, g: 1, b: 0, a: 0}
+    - _L5_color: {r: 0, g: 0, b: 0, a: 1}
+    - _L5_dir: {r: 0, g: 1, b: 0, a: 0}
+    - _L6_color: {r: 0, g: 0, b: 0, a: 1}
+    - _L6_dir: {r: 0, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

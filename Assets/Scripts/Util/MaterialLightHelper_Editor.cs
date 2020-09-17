@@ -24,7 +24,7 @@ public class MaterialLightHelper_Editor : Editor
 		serializedObject.Update();
 		MaterialLightHelper script = (MaterialLightHelper)target;
 
-		if (script.targets.Length != 0)
+		if (script.targets != null)
 		{
 			EditorGUILayout.Space();
 			EditorGUILayout.LabelField("Light Info");
