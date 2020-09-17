@@ -311,7 +311,7 @@ public class MaterialLightHelper : MonoBehaviour
 		{
 			case LightType.Directional:
 				lightData.direction = light.transform.forward * -1f;
-				inView = TestInView(lightData.direction, 100f);
+				inView = TestInView(lightData.direction, 100f) + 0.3f;
 				lightData.color = light.color * light.intensity * 0.2f;
 				lightData.atten = 1f;
 				break;
@@ -380,17 +380,6 @@ public class MaterialLightHelper : MonoBehaviour
 		catch
 		{	
 			return true;
-		}
-	}
-
-	private void PrintInstance()
-	{
-		for (int i = 0; i < materialInstance.Length; i++)
-		{
-			for (int j = 0; j < materialInstance[i].Length; j++)
-			{
-				Debug.Log("materialInstance[" + i + "][" + j + "] : " + materialInstance[i][j]);
-			}
 		}
 	}
 }
