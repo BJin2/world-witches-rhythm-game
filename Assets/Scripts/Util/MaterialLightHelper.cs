@@ -75,7 +75,7 @@ public class MaterialLightHelper : MonoBehaviour
 
 		center = CalculateCenter();
 		//Update light only when it's not playing
-		if(!Application.isEditor && !Application.isPlaying)
+		if(Application.isEditor && !Application.isPlaying)
 			UpdateLights();
 		UpdateMaterial();
 	}
@@ -118,6 +118,9 @@ public class MaterialLightHelper : MonoBehaviour
 				{
 					materialInstance[i] = targets[i].material;
 				}
+
+				if (targets[i].renderer)
+					targets[i].renderer.sharedMaterial = materialInstance[i];
 			}
 		}
 
@@ -219,7 +222,6 @@ public class MaterialLightHelper : MonoBehaviour
 			// Use color Alpha to pass attenuation data
 			Color color = lightData.color;
 			color.a = Mathf.Clamp(lightData.atten, 0.01f, 0.99f); // UV might wrap around if attenuation is >1 or 0<
-
 			foreach (Material instance in materialInstance)
 			{
 				if (instance == null)
