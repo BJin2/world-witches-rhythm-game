@@ -23,7 +23,7 @@ public class MaterialLightHelper_Editor : Editor
 		serializedObject.Update();
 		MaterialLightHelper script = (MaterialLightHelper)target;
 
-		if (script.material)
+		if (script.targets.Length != 0)
 		{
 			script.instanceMaterial = EditorGUILayout.Toggle(new GUIContent("Instance Material", "Using instancd of the material(no effect on the original)"), script.instanceMaterial);
 			script.maxLights = EditorGUILayout.IntField(new GUIContent("Maximun Lights", "Maximum number of lights"), script.maxLights);

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ComponentChildTest : MonoBehaviour
 {
-	public MeshRenderer[] renderers;
+	public Renderer[] renderers;
 	private void Awake()
 	{
-		renderers = GetComponentsInChildren<MeshRenderer>();
+		renderers = GetComponentsInChildren<Renderer>();
 	}
 }

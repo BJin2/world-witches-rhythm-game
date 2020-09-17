@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,11 +25,20 @@ public struct LightData
 	}
 }
 
+[Serializable]
+public class MaterialTarget
+{
+	public Material material;
+	public Renderer renderer;
+}
+
 [ExecuteInEditMode]
 public class MaterialLightHelper : MonoBehaviour
 {
-    public Material material = null;
-	private Material materialInstance = null;
+	public bool autoTarget = false;
+	public MaterialTarget[] targets = null;
+
+	private Material[] materialInstance = null;
 
     [HideInInspector]
     public bool instanceMaterial = true;
@@ -38,9 +48,7 @@ public class MaterialLightHelper : MonoBehaviour
     public int maxLights = 6;
     [HideInInspector]
     public List<Light> lights = null;
-	private Dictionary<int, LightData> lightDatas = null;
-
-	private delegate void ForEachLight();
+	private Dictionary<int, LightData> lightDatas = null;	
 
 	private void OnValidate()
 	{
@@ -62,21 +70,40 @@ public class MaterialLightHelper : MonoBehaviour
 
 	private void Init()
 	{
-		if (!material)
-			return;
-
-		//Instance
-		if (instanceMaterial)
+		//Material and Renderer (Helper targets)
+		if (targets.Length == 0)
 		{
-			materialInstance = new Material(material);
-			materialInstance.name = material.name + "(Copy)";
-		}
-		else
-		{
-			materialInstance = material;
+			if (!autoTarget)
+				return;
+
+			Renderer[] renderers = GetComponentsInChildren<Renderer>();
+			targets = new MaterialTarget[renderers.Length];
+			for (int i = 0; i < renderers.Length; i++)
+			{
+				targets[i] = new MaterialTarget();
+				targets[i].renderer = renderers[i];
+				targets[i].material = null;
+			}
 		}
 
-		//Renderer
+		//Material Instance
+		materialInstance = new Material[targets.Length];
+
+		for (int i = 0; i < targets.Length; i++)
+		{
+			if (targets[i].material != null)
+			{
+				if (instanceMaterial)
+				{
+					materialInstance[i] = new Material(targets[i].material);
+					materialInstance[i].name = targets[i].material.name + "(Copy)";
+				}
+				else
+				{
+					materialInstance[i] = targets[i].material;
+				}
+			}
+		}
 
 		Update();
 	}
@@ -147,8 +174,16 @@ public class MaterialLightHelper : MonoBehaviour
 		}
 	}
 
+	private LightData UpdateLightData(LightData data)
+	{
+		return new LightData();
+	}
+
 	private void UpdateMaterial()
 	{
+		if (targets.Length == 0)
+			return;
+
 
 	}
 
@@ -182,14 +217,6 @@ public class MaterialLightHelper : MonoBehaviour
 		catch
 		{
 			return true;
-		}
-	}
-
-	private void EachLight(ForEachLight forEachLight)
-	{
-		foreach (Light light in lights)
-		{
-			forEachLight();
 		}
 	}
 }
