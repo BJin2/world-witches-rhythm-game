@@ -14,8 +14,8 @@ public class CameraFocus : MonoBehaviour
 	private Transform target = null;
 
 	[SerializeField]
-	private Volume volume;
-	private DepthOfField focus;
+	private Volume volume = null;
+	private DepthOfField focus = null;
 
 	private void Start()
 	{
