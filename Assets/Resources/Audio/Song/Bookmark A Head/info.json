@@ -1,5 +1,5 @@
 {
-
+	
 	"note": [
 		{
 			"timing": 2.197324275970459,
@@ -109,12 +109,12 @@
 		{
 			"timing": 9.365328788757325,
 			"type": 0,
-			"position": 0
+			"position": 3
 		},
 		{
 			"timing": 9.365328788757325,
 			"type": 0,
-			"position": 3
+			"position": 0
 		},
 		{
 			"timing": 9.706644058227539,
@@ -209,12 +209,12 @@
 		{
 			"timing": 15.231995582580567,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 15.231995582580567,
 			"type": 0,
-			"position": 3
+			"position": 1
 		},
 		{
 			"timing": 15.594648361206055,
@@ -384,12 +384,12 @@
 		{
 			"timing": 26.495986938476564,
 			"type": 0,
-			"position": 0
+			"position": 1
 		},
 		{
 			"timing": 26.495986938476564,
 			"type": 0,
-			"position": 1
+			"position": 0
 		},
 		{
 			"timing": 27.07199478149414,
@@ -398,11 +398,6 @@
 		},
 		{
 			"timing": 27.07199478149414,
-			"type": 0,
-			"position": 2
-		},
-		{
-			"timing": 27.754648208618165,
 			"type": 0,
 			"position": 2
 		},
@@ -410,6 +405,11 @@
 			"timing": 27.754648208618165,
 			"type": 0,
 			"position": 3
+		},
+		{
+			"timing": 27.754648208618165,
+			"type": 0,
+			"position": 2
 		},
 		{
 			"timing": 28.458662033081056,
@@ -469,22 +469,22 @@
 		{
 			"timing": 32.7893180847168,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 32.7893180847168,
 			"type": 0,
-			"position": 4
-		},
-		{
-			"timing": 33.30131530761719,
-			"type": 0,
 			"position": 0
 		},
 		{
 			"timing": 33.30131530761719,
 			"type": 0,
 			"position": 4
+		},
+		{
+			"timing": 33.30131530761719,
+			"type": 0,
+			"position": 0
 		},
 		{
 			"timing": 33.535987854003909,
@@ -514,12 +514,12 @@
 		{
 			"timing": 35.562652587890628,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 35.562652587890628,
 			"type": 0,
-			"position": 3
+			"position": 1
 		},
 		{
 			"timing": 35.882652282714847,
@@ -719,22 +719,22 @@
 		{
 			"timing": 46.378662109375,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 46.378662109375,
 			"type": 0,
-			"position": 4
-		},
-		{
-			"timing": 46.76265335083008,
-			"type": 0,
-			"position": 1
+			"position": 0
 		},
 		{
 			"timing": 46.76265335083008,
 			"type": 0,
 			"position": 3
+		},
+		{
+			"timing": 46.76265335083008,
+			"type": 0,
+			"position": 1
 		},
 		{
 			"timing": 47.1039924621582,
@@ -749,16 +749,11 @@
 		{
 			"timing": 47.48798370361328,
 			"type": 0,
-			"position": 1
+			"position": 0
 		},
 		{
 			"timing": 47.48798370361328,
 			"type": 0,
-			"position": 0
-		},
-		{
-			"timing": 47.8079833984375,
-			"type": 0,
 			"position": 1
 		},
 		{
@@ -767,14 +762,19 @@
 			"position": 2
 		},
 		{
-			"timing": 48.170658111572269,
+			"timing": 47.8079833984375,
 			"type": 0,
-			"position": 2
+			"position": 1
 		},
 		{
 			"timing": 48.170658111572269,
 			"type": 0,
 			"position": 3
+		},
+		{
+			"timing": 48.170658111572269,
+			"type": 0,
+			"position": 2
 		},
 		{
 			"timing": 48.554649353027347,
@@ -1004,12 +1004,12 @@
 		{
 			"timing": 61.03464889526367,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 61.03464889526367,
 			"type": 0,
-			"position": 4
+			"position": 0
 		},
 		{
 			"timing": 61.75997543334961,
@@ -1049,12 +1049,12 @@
 		{
 			"timing": 65.02399444580078,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 65.02399444580078,
 			"type": 0,
-			"position": 4
+			"position": 0
 		},
 		{
 			"timing": 66.00532531738281,
@@ -1079,12 +1079,12 @@
 		{
 			"timing": 67.1999740600586,
 			"type": 0,
-			"position": 2
+			"position": 3
 		},
 		{
 			"timing": 67.1999740600586,
 			"type": 0,
-			"position": 3
+			"position": 2
 		},
 		{
 			"timing": 68.09598541259766,
@@ -1134,12 +1134,12 @@
 		{
 			"timing": 71.53065490722656,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 71.53065490722656,
 			"type": 0,
-			"position": 3
+			"position": 1
 		},
 		{
 			"timing": 72.89598846435547,
@@ -1154,12 +1154,12 @@
 		{
 			"timing": 73.55732727050781,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 73.55732727050781,
 			"type": 0,
-			"position": 3
+			"position": 1
 		},
 		{
 			"timing": 73.94131469726563,
@@ -1379,16 +1379,11 @@
 		{
 			"timing": 85.65331268310547,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 85.65331268310547,
 			"type": 0,
-			"position": 4
-		},
-		{
-			"timing": 85.84532928466797,
-			"type": 0,
 			"position": 0
 		},
 		{
@@ -1397,7 +1392,7 @@
 			"position": 4
 		},
 		{
-			"timing": 86.1866455078125,
+			"timing": 85.84532928466797,
 			"type": 0,
 			"position": 0
 		},
@@ -1407,7 +1402,7 @@
 			"position": 4
 		},
 		{
-			"timing": 86.378662109375,
+			"timing": 86.1866455078125,
 			"type": 0,
 			"position": 0
 		},
@@ -1417,14 +1412,19 @@
 			"position": 4
 		},
 		{
-			"timing": 86.69866180419922,
+			"timing": 86.378662109375,
 			"type": 0,
-			"position": 1
+			"position": 0
 		},
 		{
 			"timing": 86.69866180419922,
 			"type": 0,
 			"position": 3
+		},
+		{
+			"timing": 86.69866180419922,
+			"type": 0,
+			"position": 1
 		},
 		{
 			"timing": 86.86931610107422,
@@ -1769,22 +1769,22 @@
 		{
 			"timing": 120.1919937133789,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 120.1919937133789,
 			"type": 0,
-			"position": 4
-		},
-		{
-			"timing": 121.91997528076172,
-			"type": 0,
 			"position": 0
 		},
 		{
 			"timing": 121.91997528076172,
 			"type": 0,
 			"position": 4
+		},
+		{
+			"timing": 121.91997528076172,
+			"type": 0,
+			"position": 0
 		},
 		{
 			"timing": 122.36798095703125,
@@ -1814,12 +1814,12 @@
 		{
 			"timing": 125.26931762695313,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 125.26931762695313,
 			"type": 0,
-			"position": 4
+			"position": 0
 		},
 		{
 			"timing": 125.90931701660156,
@@ -1844,12 +1844,12 @@
 		{
 			"timing": 127.38131713867188,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 127.38131713867188,
 			"type": 0,
-			"position": 3
+			"position": 1
 		},
 		{
 			"timing": 127.9786605834961,
@@ -1879,22 +1879,22 @@
 		{
 			"timing": 130.32533264160157,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 130.32533264160157,
 			"type": 0,
-			"position": 4
-		},
-		{
-			"timing": 130.58131408691407,
-			"type": 0,
-			"position": 1
+			"position": 0
 		},
 		{
 			"timing": 130.58131408691407,
 			"type": 0,
 			"position": 3
+		},
+		{
+			"timing": 130.58131408691407,
+			"type": 0,
+			"position": 1
 		},
 		{
 			"timing": 132.0959930419922,
@@ -1929,22 +1929,22 @@
 		{
 			"timing": 135.18931579589845,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 135.18931579589845,
 			"type": 0,
-			"position": 4
-		},
-		{
-			"timing": 135.78665161132813,
-			"type": 0,
 			"position": 0
 		},
 		{
 			"timing": 135.78665161132813,
 			"type": 0,
 			"position": 4
+		},
+		{
+			"timing": 135.78665161132813,
+			"type": 0,
+			"position": 0
 		},
 		{
 			"timing": 136.2986602783203,
@@ -2064,12 +2064,12 @@
 		{
 			"timing": 144.91732788085938,
 			"type": 0,
-			"position": 0
+			"position": 3
 		},
 		{
 			"timing": 144.91732788085938,
 			"type": 0,
-			"position": 3
+			"position": 0
 		},
 		{
 			"timing": 145.49331665039063,
@@ -2189,12 +2189,12 @@
 		{
 			"timing": 153.98399353027345,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 153.98399353027345,
 			"type": 0,
-			"position": 4
+			"position": 0
 		},
 		{
 			"timing": 154.32533264160157,
@@ -2214,12 +2214,12 @@
 		{
 			"timing": 155.5199737548828,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 155.5199737548828,
 			"type": 0,
-			"position": 4
+			"position": 0
 		},
 		{
 			"timing": 155.88265991210938,
@@ -2314,12 +2314,12 @@
 		{
 			"timing": 161.10931396484376,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 161.10931396484376,
 			"type": 0,
-			"position": 3
+			"position": 1
 		},
 		{
 			"timing": 161.3013153076172,
@@ -2354,22 +2354,22 @@
 		{
 			"timing": 162.30398559570313,
 			"type": 0,
-			"position": 0
+			"position": 3
 		},
 		{
 			"timing": 162.30398559570313,
 			"type": 0,
-			"position": 3
-		},
-		{
-			"timing": 163.2639923095703,
-			"type": 0,
-			"position": 1
+			"position": 0
 		},
 		{
 			"timing": 163.2639923095703,
 			"type": 0,
 			"position": 4
+		},
+		{
+			"timing": 163.2639923095703,
+			"type": 0,
+			"position": 1
 		},
 		{
 			"timing": 163.47732543945313,
@@ -2399,22 +2399,22 @@
 		{
 			"timing": 164.3946533203125,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 164.3946533203125,
 			"type": 0,
-			"position": 3
-		},
-		{
-			"timing": 164.58663940429688,
-			"type": 0,
 			"position": 1
 		},
 		{
 			"timing": 164.58663940429688,
 			"type": 0,
 			"position": 3
+		},
+		{
+			"timing": 164.58663940429688,
+			"type": 0,
+			"position": 1
 		},
 		{
 			"timing": 164.86399841308595,
@@ -2484,12 +2484,12 @@
 		{
 			"timing": 168.5546417236328,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 168.5546417236328,
 			"type": 0,
-			"position": 4
+			"position": 0
 		},
 		{
 			"timing": 168.81065368652345,
@@ -2504,12 +2504,12 @@
 		{
 			"timing": 170.19732666015626,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 170.19732666015626,
 			"type": 0,
-			"position": 3
+			"position": 1
 		},
 		{
 			"timing": 171.88265991210938,
@@ -2574,12 +2574,12 @@
 		{
 			"timing": 175.21066284179688,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 175.21066284179688,
 			"type": 0,
-			"position": 3
+			"position": 1
 		},
 		{
 			"timing": 175.57330322265626,
@@ -2879,12 +2879,12 @@
 		{
 			"timing": 191.57330322265626,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 191.57330322265626,
 			"type": 0,
-			"position": 4
+			"position": 0
 		},
 		{
 			"timing": 192.2559814453125,
@@ -3054,12 +3054,12 @@
 		{
 			"timing": 207.29598999023438,
 			"type": 0,
-			"position": 1
+			"position": 3
 		},
 		{
 			"timing": 207.29598999023438,
 			"type": 0,
-			"position": 3
+			"position": 1
 		},
 		{
 			"timing": 209.6426544189453,
@@ -3339,12 +3339,12 @@
 		{
 			"timing": 231.7653350830078,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 231.7653350830078,
 			"type": 0,
-			"position": 4
+			"position": 0
 		},
 		{
 			"timing": 232.34130859375,
@@ -3359,22 +3359,22 @@
 		{
 			"timing": 233.0453338623047,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 233.0453338623047,
 			"type": 0,
-			"position": 4
-		},
-		{
-			"timing": 233.85598754882813,
-			"type": 0,
-			"position": 1
+			"position": 0
 		},
 		{
 			"timing": 233.85598754882813,
 			"type": 0,
 			"position": 3
+		},
+		{
+			"timing": 233.85598754882813,
+			"type": 0,
+			"position": 1
 		},
 		{
 			"timing": 234.41065979003907,
@@ -3394,12 +3394,12 @@
 		{
 			"timing": 235.47732543945313,
 			"type": 0,
-			"position": 0
+			"position": 4
 		},
 		{
 			"timing": 235.47732543945313,
 			"type": 0,
-			"position": 4
+			"position": 0
 		},
 		{
 			"timing": 236.22398376464845,
@@ -3508,156 +3508,140 @@
 			"singer": 0
 		},
 		{
-			"timing": 17.535985946655275,
+			"timing": 17.151994705200197,
 			"singer": 1
 		},
 		{
-			"timing": 23.29598617553711,
+			"timing": 22.78399085998535,
 			"singer": 2
 		},
 		{
-			"timing": 29.098661422729493,
+			"timing": 28.62932014465332,
 			"singer": 3
 		},
 		{
-			"timing": 31.978662490844728,
+			"timing": 34.1333122253418,
 			"singer": 4
 		},
 		{
-			"timing": 34.60265350341797,
+			"timing": 40.12798309326172,
 			"singer": 0
 		},
 		{
-			"timing": 40.51199722290039,
+			"timing": 53.22664260864258,
 			"singer": 1
 		},
 		{
-			"timing": 46.42131423950195,
+			"timing": 59.00798034667969,
 			"singer": 2
 		},
 		{
-			"timing": 53.73866271972656,
+			"timing": 65.30131530761719,
 			"singer": 3
 		},
 		{
-			"timing": 59.242652893066409,
+			"timing": 75.4133071899414,
 			"singer": 4
 		},
 		{
-			"timing": 65.5359878540039,
+			"timing": 80.04265594482422,
 			"singer": 0
 		},
 		{
-			"timing": 70.69866180419922,
+			"timing": 82.9439926147461,
 			"singer": 1
 		},
 		{
-			"timing": 75.81866455078125,
+			"timing": 85.67465209960938,
 			"singer": 2
 		},
 		{
-			"timing": 80.2773208618164,
+			"timing": 89.00265502929688,
 			"singer": 3
 		},
 		{
-			"timing": 83.37065887451172,
+			"timing": 96.29866027832031,
 			"singer": 4
 		},
 		{
-			"timing": 87.29598999023438,
+			"timing": 102.03732299804688,
 			"singer": 0
 		},
 		{
-			"timing": 96.66131591796875,
+			"timing": 104.89598846435547,
 			"singer": 1
 		},
 		{
-			"timing": 102.31465148925781,
+			"timing": 110.67732238769531,
 			"singer": 2
 		},
 		{
-			"timing": 105.3226547241211,
+			"timing": 113.4079818725586,
 			"singer": 3
 		},
 		{
-			"timing": 108.01065826416016,
+			"timing": 119.21065521240235,
 			"singer": 4
 		},
 		{
-			"timing": 113.57865905761719,
+			"timing": 131.92532348632813,
 			"singer": 0
 		},
 		{
-			"timing": 119.46664428710938,
+			"timing": 139.583984375,
 			"singer": 1
 		},
 		{
-			"timing": 125.18399047851563,
+			"timing": 145.70664978027345,
 			"singer": 2
 		},
 		{
-			"timing": 132.35198974609376,
+			"timing": 150.7626495361328,
 			"singer": 3
 		},
 		{
-			"timing": 139.73330688476563,
+			"timing": 155.92532348632813,
 			"singer": 4
 		},
 		{
-			"timing": 146.06932067871095,
+			"timing": 160.4693145751953,
 			"singer": 0
 		},
 		{
-			"timing": 151.4239959716797,
+			"timing": 163.54132080078126,
 			"singer": 1
 		},
 		{
-			"timing": 156.43731689453126,
+			"timing": 166.1653289794922,
 			"singer": 2
 		},
 		{
-			"timing": 160.70399475097657,
+			"timing": 169.0453338623047,
 			"singer": 3
 		},
 		{
-			"timing": 163.66932678222657,
+			"timing": 212.927978515625,
 			"singer": 4
 		},
 		{
-			"timing": 166.54931640625,
+			"timing": 219.135986328125,
 			"singer": 0
 		},
 		{
-			"timing": 169.53598022460938,
+			"timing": 229.48265075683595,
 			"singer": 1
 		},
 		{
-			"timing": 213.2266387939453,
+			"timing": 233.83465576171876,
 			"singer": 2
 		},
 		{
-			"timing": 219.45599365234376,
+			"timing": 236.8853302001953,
 			"singer": 3
 		},
 		{
-			"timing": 224.53330993652345,
+			"timing": 239.44532775878907,
 			"singer": 4
-		},
-		{
-			"timing": 229.86663818359376,
-			"singer": 0
-		},
-		{
-			"timing": 234.11199951171876,
-			"singer": 1
-		},
-		{
-			"timing": 237.24798583984376,
-			"singer": 2
-		},
-		{
-			"timing": 239.9573211669922,
-			"singer": 3
 		}
 	]
 }

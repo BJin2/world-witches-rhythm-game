@@ -93,11 +93,11 @@ public class SongInfoMaker : MonoBehaviour
 			// Sort info.note and info.part by their timing
 			info.note.Sort((x, y) =>
 			{
-				return y.timing.CompareTo(x.timing);
+				return x.timing.CompareTo(y.timing);
 			});
 			info.part.Sort((x, y) =>
 			{
-				return y.timing.CompareTo(x.timing);
+				return x.timing.CompareTo(y.timing);
 			});
 
 			string jsonString = JsonUtility.ToJson(info);
