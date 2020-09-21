@@ -128,5 +128,9 @@ public class Hangar : KeyAction
 		}
 	}
 
+	#endregion
+
+	//TODO song selection
+#region Functions for song selection
 #endregion
 }

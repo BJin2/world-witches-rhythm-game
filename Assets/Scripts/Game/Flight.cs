@@ -31,11 +31,11 @@ public class Flight : MonoBehaviour
 		set { flightMember = value; } }
 	public static int currentMemberIndex;
 
-	private List<Character> flight;
+	//private List<Character> flight;
 	
 	private void Awake()
 	{
-		flight = new List<Character>();
+		//flight = new List<Character>();
 	}
 
 	public static void Init()
