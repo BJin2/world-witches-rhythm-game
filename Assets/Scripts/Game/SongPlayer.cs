@@ -12,6 +12,7 @@ public class SongPlayer : MonoBehaviour
 	private AudioClip[] song = null;
 	[SerializeField]
 	private float delay = 3.0f;
+	[SerializeField]
 	private float timer = 0.0f;
 
 	private void Awake()
@@ -27,8 +28,11 @@ public class SongPlayer : MonoBehaviour
 
 		audioSource = new List<AudioSource>();
 		SongLoader.Load(ref info, ref song, songName);
+	}
 
-		//TODO start playing after delay second
+	private void Start()
+	{
+		Spawner.Instance.SpawnAll(info);
 	}
 
 	private void Update()
@@ -49,6 +53,8 @@ public class SongPlayer : MonoBehaviour
 
 		if (partIndex > 0)
 			audioSource[info.part[partIndex - 1].singer].Stop();
+		else
+			timer = 0.0f;
 
 		//audioSource[info.part[partIndex].singer].PlayScheduled(info.part[partIndex].timing);
 		audioSource[info.part[partIndex].singer].time = info.part[partIndex].timing;
