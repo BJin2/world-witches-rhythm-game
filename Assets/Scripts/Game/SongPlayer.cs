@@ -5,22 +5,36 @@ using UnityEngine;
 public class SongPlayer : MonoBehaviour
 {
 	public static SongPlayer Instance { get; private set; }
-
-	//TODO temporary fixed song for now
 	public static string songName = "Bookmark A Head";
-	private AudioSource source = null;
-	public SongInfo info;
-	public AudioClip[] song;
-	public float delay = 3.0f;
+	private List<AudioSource> audioSource = null;
+	private SongInfo info = null;
+	private AudioClip[] song = null;
+	[SerializeField]
+	private float delay = 3.0f;
 
 	private void Awake()
 	{
-		source = GetComponent<AudioSource>();
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		else
+		{
+			Destroy(this);
+		}
+
+		audioSource = new List<AudioSource>();
 		SongLoader.Load(ref info, ref song, songName);
 	}
 
 	public void Play()
 	{
+		//Read info.part and change the one playing audio
+		//Access each Character with Flight.flight and info.part[?].part
+	}
 
+	public void AddAudio(AudioSource aud)
+	{
+		audioSource.Add(aud);
 	}
 }

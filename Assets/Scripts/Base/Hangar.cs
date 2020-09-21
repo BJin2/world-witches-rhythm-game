@@ -70,10 +70,10 @@ public class Hangar : KeyAction
 				return;
 		}
 
-		foreach (string name in Flight.FlightMember)
-		{
-			Debug.Log(name);
-		}
+		//foreach (string name in Flight.FlightMember)
+		//{
+		//	Debug.Log(name);
+		//}
 		AsyncSceneLoader.LoadAsyncAdditive("Gameplay", this);
 	}
 

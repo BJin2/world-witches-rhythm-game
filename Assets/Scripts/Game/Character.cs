@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Character : MonoBehaviour
 {
-	//Controlling character animation && skills
+
 }

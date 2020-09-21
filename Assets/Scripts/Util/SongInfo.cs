@@ -6,11 +6,13 @@ public class Note
 {
 	public float timing = 0;
 	public int type = 0;
+	public int position = 0;
 
-	public Note(float ti, int ty)
+	public Note(float ti, int ty, int po = 0)
 	{
 		timing = ti;
 		type = ty;
+		position = po;
 	}
 }
 
