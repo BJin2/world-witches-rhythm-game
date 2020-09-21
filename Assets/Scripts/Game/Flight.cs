@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Flight : MonoBehaviour
 {
-	public List<string> CHARACTER_NAME = new List<string>
+	public static readonly List<string> CHARACTER_NAME = new List<string>
 	{
 		"Miyafuji",
 		"Sakamoto",
@@ -40,7 +40,6 @@ public class Flight : MonoBehaviour
 
 	public static void Init()
 	{
-		flightMember.Clear();
 		flightMember = new List<string>();
 		flightMember.Clear();
 		for (int i = 0; i < 5; i++)

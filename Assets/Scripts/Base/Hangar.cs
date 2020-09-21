@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class Hangar : KeyAction
@@ -17,7 +15,7 @@ public class Hangar : KeyAction
 	private void Start()
 	{
 		profiles = new Dictionary<string, Sprite>();
-		foreach (string name in CharacterInfo.characterName)
+		foreach (string name in Flight.CHARACTER_NAME)
 		{
 			profiles.Add(name, Resources.Load("Sprites/" + name, typeof(Sprite)) as Sprite);
 		}
@@ -54,7 +52,7 @@ public class Hangar : KeyAction
 
 		//Turn on hangar UI
 		hangarUI.SetActive(enable);
-		CharacterInfo.Init();
+		Flight.Init();
 		for (int i = 0; i < 5; i++)
 		{
 			UpdateProfile(i);
@@ -66,17 +64,22 @@ public class Hangar : KeyAction
 	public void ConfirmMember()
 	{
 		//Check all slots are filled
-		foreach (string member in CharacterInfo.flightMember)
+		foreach (string member in Flight.FlightMember)
 		{
 			if (member == "")
 				return;
+		}
+
+		foreach (string name in Flight.FlightMember)
+		{
+			Debug.Log(name);
 		}
 		AsyncSceneLoader.LoadAsyncAdditive("Gameplay", this);
 	}
 
 	public void SelectMember(int index)
 	{
-		CharacterInfo.currentMemberIndex = index;
+		Flight.currentMemberIndex = index;
 		characterUI.SetActive(true);
 	}
 
@@ -85,20 +88,20 @@ public class Hangar : KeyAction
 		if (name != "")
 		{
 			//Current slot is already occupied or selected character already exist
-			for (int i = 0; i < CharacterInfo.flightMember.Count; i++)
+			for (int i = 0; i < Flight.FlightMember.Count; i++)
 			{
-				if (CharacterInfo.flightMember[i] == name)
+				if (Flight.FlightMember[i] == name)
 				{
 					//Swap
-					CharacterInfo.flightMember[i] = CharacterInfo.flightMember[CharacterInfo.currentMemberIndex];
+					Flight.FlightMember[i] = Flight.FlightMember[Flight.currentMemberIndex];
 					UpdateProfile(i);
 					break;
 				}
 			}
 		}
 
-		CharacterInfo.flightMember[CharacterInfo.currentMemberIndex] = name;
-		UpdateProfile(CharacterInfo.currentMemberIndex);
+		Flight.FlightMember[Flight.currentMemberIndex] = name;
+		UpdateProfile(Flight.currentMemberIndex);
 
 		//Close Character selection window
 		GameObject.Find("CharacterList").SetActive(false);
@@ -111,12 +114,12 @@ public class Hangar : KeyAction
 
 	private void UpdateProfile(int index)
 	{
-		string name = CharacterInfo.flightMember[index];
+		string name = Flight.FlightMember[index];
 		Transform slotBG = hangarUI.transform.Find("BG").Find("SlotBG");
 		Image profile = slotBG.GetChild(index).Find("Profile").GetComponent<Image>();
 		if (name != "")
 		{
-			profile.sprite = profiles[CharacterInfo.flightMember[index]];
+			profile.sprite = profiles[Flight.FlightMember[index]];
 			profile.color = new Color(255, 255, 255, 1.0f);
 		}
 		else
