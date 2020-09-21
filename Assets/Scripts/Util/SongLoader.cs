@@ -5,7 +5,7 @@ public class SongLoader
 	public static void Load(ref SongInfo info, ref AudioClip[] clip, string songName)
 	{
 		LoadSong(ref clip, songName);
-		//LoadSongInfo(ref info, songName);
+		LoadSongInfo(ref info, songName);
 	}
 
 	//Load song audio files based on flight members
@@ -19,9 +19,9 @@ public class SongLoader
 	}
 
 	//Load song information data(notes, timing and etc)
-	private static void LoadSongInfo(ref SongInfo info, string songName)
+	public static void LoadSongInfo(ref SongInfo info, string songName)
 	{
-		string json = (Resources.Load(@"Audio/" + songName + "/info", typeof(TextAsset)) as TextAsset).text;
+		string json = (Resources.Load(@"Audio/Song/" + songName + "/info", typeof(TextAsset)) as TextAsset).text;
 		info = JsonUtility.FromJson<SongInfo>(json);
 	}
 }

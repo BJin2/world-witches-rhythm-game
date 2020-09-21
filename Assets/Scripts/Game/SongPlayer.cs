@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SongPlayer : MonoBehaviour
@@ -25,6 +24,8 @@ public class SongPlayer : MonoBehaviour
 
 		audioSource = new List<AudioSource>();
 		SongLoader.Load(ref info, ref song, songName);
+
+		//TODO start playing after delay second
 	}
 
 	public void Play()
@@ -36,5 +37,13 @@ public class SongPlayer : MonoBehaviour
 	public void AddAudio(AudioSource aud)
 	{
 		audioSource.Add(aud);
+	}
+
+	public void AssignAudio()
+	{
+		for (int i = 0; i < audioSource.Count; i++)
+		{
+			audioSource[i].clip = song[i];
+		}
 	}
 }

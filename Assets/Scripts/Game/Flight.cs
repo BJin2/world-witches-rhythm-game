@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Flight : MonoBehaviour
 {
@@ -35,18 +33,24 @@ public class Flight : MonoBehaviour
 
 	private List<Character> flight = null;
 	private List<GameObject> member = null;
+
 	[SerializeField]
-	private List<Transform> spawnPosition = null;
+	private List<Vector3> spawnPositions = null;
 	
 	private void Awake()
 	{
 		LoadMember();
+
+		spawnPositions = new List<Vector3>();
+		for (int i = 0; i < 5; i++)
+		{
+			spawnPositions.Add(transform.Find("CharacterPosition" + i.ToString()).position);
+		}
 	}
 
 	private void Start()
 	{
 		SpawnMember();
-
 	}
 
 	public static void Init()
@@ -74,10 +78,11 @@ public class Flight : MonoBehaviour
 		{
 			flight.Add(
 				Instantiate(member[i], 
-				spawnPosition[i].position, 
+				spawnPositions[i], 
 				member[i].transform.rotation, 
 				transform).GetComponent<Character>());
 			SongPlayer.Instance.AddAudio(flight.Last().GetComponent<AudioSource>());
 		}
+		SongPlayer.Instance.AssignAudio();
 	}
 }
