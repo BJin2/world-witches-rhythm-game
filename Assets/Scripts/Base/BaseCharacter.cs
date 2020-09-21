@@ -10,15 +10,11 @@ public class BaseCharacter : MonoBehaviour
 	private float rotateSpeed = 1.0f;
 
 	private Vector3 direction = Vector3.zero;
+	[SerializeField]
 	private CameraMovement followingCam = null;
 
 	private KeyAction.TriggeredAction action = null;
 	private KeyCode trigger = KeyCode.None;
-
-	private void Start()
-	{
-		followingCam = Camera.main.GetComponentInParent<CameraMovement>();
-	}
 
 	private void Update()
 	{
