@@ -17,13 +17,11 @@ public class SongPlayer : MonoBehaviour
 
 	private void Awake()
 	{
-		if (Instance == null)
+		//TODO mouse state none for testing
+		Cursor.lockState = CursorLockMode.None;
+		if (Instance == null || Instance != this)
 		{
 			Instance = this;
-		}
-		else
-		{
-			Destroy(this);
 		}
 
 		audioSource = new List<AudioSource>();
@@ -32,11 +30,16 @@ public class SongPlayer : MonoBehaviour
 
 	private void Start()
 	{
+		//Let other scripts run process after loading is done
 		Spawner.Instance.SpawnAll(info);
 	}
 
 	private void Update()
 	{
+		//Do nothing when song is over
+		if (timer > audioSource[0].clip.length)
+			return;
+
 		timer += Time.deltaTime;
 		if (timer >= delay)
 		{
@@ -44,21 +47,23 @@ public class SongPlayer : MonoBehaviour
 		}
 	}
 
+	//Read info.part and change the one playing audio
 	public void Play()
 	{
-		//Read info.part and change the one playing audio
-		//Access each Character with Flight.flight and info.part[?].part
+		//Prevent index range error
 		if (partIndex >= info.part.Count)
 			return;
 
-		if (partIndex > 0)
+		if (partIndex > 0)// Stop the previous one
 			audioSource[info.part[partIndex - 1].singer].Stop();
-		else
+		else// start from 0 for the first one playing audio
 			timer = 0.0f;
 
-		//audioSource[info.part[partIndex].singer].PlayScheduled(info.part[partIndex].timing);
-		audioSource[info.part[partIndex].singer].time = info.part[partIndex].timing;
-		audioSource[info.part[partIndex].singer].Play();
+		//For the one stated in this part(singer)
+		//Play from the time in this part(timing)
+		Part part = info.part[partIndex];
+		audioSource[part.singer].time = part.timing;
+		audioSource[part.singer].Play();
 
 		//Prepare for next;
 		partIndex++;
@@ -69,9 +74,11 @@ public class SongPlayer : MonoBehaviour
 	public void AddAudio(AudioSource aud)
 	{
 		audioSource.Add(aud);
+		if (audioSource.Count == Flight.FlightMember.Count)
+			AddSong();
 	}
 
-	public void AssignAudio()
+	public void AddSong()
 	{
 		for (int i = 0; i < audioSource.Count; i++)
 		{
