@@ -9,6 +9,11 @@ public abstract class Neuroi : MonoBehaviour
 	public static float Speed { get; set; }
 	private int score;
 
+	protected virtual void Update()
+	{
+		transform.Translate(transform.forward * Speed * Time.deltaTime * -1);
+	}
+
 	public virtual void Shoot()
 	{
 		Debug.Log("Laser");

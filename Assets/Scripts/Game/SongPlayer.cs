@@ -6,14 +6,17 @@ public class SongPlayer : MonoBehaviour
 {
 	public static SongPlayer Instance { get; private set; }
 	public static string songName = "Bookmark A Head";
-	private List<AudioSource> audioSource = null;
-	private SongInfo info = null;
+
 	private int partIndex = 0;
+	private SongInfo info = null;
+
+	private List<AudioSource> audioSource = null;
 	private AudioClip[] song = null;
-	[SerializeField]
+
+	
+
 	private float delay = 3.0f;
-	[SerializeField]
-	private float timer = 0.0f;
+	public float Timer { get; private set; }
 
 	private void Awake()
 	{
@@ -23,7 +26,7 @@ public class SongPlayer : MonoBehaviour
 		{
 			Instance = this;
 		}
-
+		Timer = 0.0f;
 		audioSource = new List<AudioSource>();
 		SongLoader.Load(ref info, ref song, songName);
 	}
@@ -37,18 +40,18 @@ public class SongPlayer : MonoBehaviour
 	private void Update()
 	{
 		//Do nothing when song is over
-		if (timer > audioSource[0].clip.length)
+		if (Timer > audioSource[0].clip.length)
 			return;
 
-		timer += Time.deltaTime;
-		if (timer >= delay)
+		Timer += Time.deltaTime;
+		if (Timer >= delay)
 		{
 			Play();
 		}
 	}
 
 	//Read info.part and change the one playing audio
-	public void Play()
+	private void Play()
 	{
 		//Prevent index range error
 		if (partIndex >= info.part.Count)
@@ -57,7 +60,10 @@ public class SongPlayer : MonoBehaviour
 		if (partIndex > 0)// Stop the previous one
 			audioSource[info.part[partIndex - 1].singer].Stop();
 		else// start from 0 for the first one playing audio
-			timer = 0.0f;
+		{
+			Timer = 0.0f;
+			Spawner.Instance.StartActivating();
+		}
 
 		//For the one stated in this part(singer)
 		//Play from the time in this part(timing)
