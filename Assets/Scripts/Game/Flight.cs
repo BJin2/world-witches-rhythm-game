@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Flight : MonoBehaviour
 {
+#region used over different scenes
 	public static readonly List<string> CHARACTER_NAME = new List<string>
 	{
 		"Miyafuji",
@@ -18,7 +19,14 @@ public class Flight : MonoBehaviour
 		"Sanya",
 		"Eila"
 	};
-	private static List<string> flightMember;
+	//hard coded initializing for fast testing
+	private static List<string> flightMember = new List<string>{
+		"Miyafuji",
+		"Sakamoto",
+		"Lynette",
+		"Perrine",
+		"Minna"
+	};
 	public static List<string> FlightMember { 
 		get 
 		{
@@ -29,7 +37,8 @@ public class Flight : MonoBehaviour
 			return flightMember;
 		} 
 		set { flightMember = value; } }
-	public static int currentMemberIndex;
+	public static int currentMemberIndex = -1;
+#endregion
 
 	private List<Character> flight = null;
 	private List<GameObject> member = null;
@@ -83,6 +92,5 @@ public class Flight : MonoBehaviour
 				transform).GetComponent<Character>());
 			SongPlayer.Instance.AddAudio(flight.Last().GetComponent<AudioSource>());
 		}
-		SongPlayer.Instance.AssignAudio();
 	}
 }

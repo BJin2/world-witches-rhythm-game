@@ -6,59 +6,64 @@ public class SongPlayer : MonoBehaviour
 {
 	public static SongPlayer Instance { get; private set; }
 	public static string songName = "Bookmark A Head";
-	private List<AudioSource> audioSource = null;
-	private SongInfo info = null;
+
 	private int partIndex = 0;
+	private SongInfo info = null;
+
+	private List<AudioSource> audioSource = null;
 	private AudioClip[] song = null;
+
 	[SerializeField]
-	private float delay = 3.0f;
-	[SerializeField]
-	private float timer = 0.0f;
+	private float delayBeforeStart = 3.0f;
+	private float delay = 0.0f;
+	public float Timer { get; private set; }
 
 	private void Awake()
 	{
-		if (Instance == null)
-		{
+		Cursor.lockState = CursorLockMode.None;
+		if (Instance == null || Instance != this)
 			Instance = this;
-		}
-		else
-		{
-			Destroy(this);
-		}
 
+		Timer = float.MinValue;
 		audioSource = new List<AudioSource>();
 		SongLoader.Load(ref info, ref song, songName);
 	}
 
 	private void Start()
 	{
+		//Let other scripts run process after loading is done
 		Spawner.Instance.SpawnAll(info);
+		Timer = (Mathf.Max(delayBeforeStart, Spawner.Instance.GetOffset())) * -1;
 	}
 
 	private void Update()
 	{
-		timer += Time.deltaTime;
-		if (timer >= delay)
+		//Do nothing when song is over
+		if (Timer > audioSource[0].clip.length)
+			return;
+
+		Timer += Time.deltaTime;
+		if (Timer >= delay)
 		{
 			Play();
 		}
 	}
 
-	public void Play()
+	//Read info.part and change the one playing audio
+	private void Play()
 	{
-		//Read info.part and change the one playing audio
-		//Access each Character with Flight.flight and info.part[?].part
+		//Prevent index range error
 		if (partIndex >= info.part.Count)
 			return;
 
-		if (partIndex > 0)
+		if (partIndex > 0)// Stop the previous one
 			audioSource[info.part[partIndex - 1].singer].Stop();
-		else
-			timer = 0.0f;
 
-		//audioSource[info.part[partIndex].singer].PlayScheduled(info.part[partIndex].timing);
-		audioSource[info.part[partIndex].singer].time = info.part[partIndex].timing;
-		audioSource[info.part[partIndex].singer].Play();
+		//For the one stated in this part(singer)
+		//Play from the time in this part(timing)
+		Part part = info.part[partIndex];
+		audioSource[part.singer].time = part.timing;
+		audioSource[part.singer].Play();
 
 		//Prepare for next;
 		partIndex++;
@@ -69,9 +74,11 @@ public class SongPlayer : MonoBehaviour
 	public void AddAudio(AudioSource aud)
 	{
 		audioSource.Add(aud);
+		if (audioSource.Count == Flight.FlightMember.Count)
+			AddSong();
 	}
 
-	public void AssignAudio()
+	public void AddSong()
 	{
 		for (int i = 0; i < audioSource.Count; i++)
 		{
