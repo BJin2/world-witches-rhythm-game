@@ -13,20 +13,18 @@ public class SongPlayer : MonoBehaviour
 	private List<AudioSource> audioSource = null;
 	private AudioClip[] song = null;
 
-	
-
-	private float delay = 3.0f;
+	[SerializeField]
+	private float delayBeforeStart = 3.0f;
+	private float delay = 0.0f;
 	public float Timer { get; private set; }
 
 	private void Awake()
 	{
-		//TODO mouse state none for testing
 		Cursor.lockState = CursorLockMode.None;
 		if (Instance == null || Instance != this)
-		{
 			Instance = this;
-		}
-		Timer = 0.0f;
+
+		Timer = float.MinValue;
 		audioSource = new List<AudioSource>();
 		SongLoader.Load(ref info, ref song, songName);
 	}
@@ -35,6 +33,7 @@ public class SongPlayer : MonoBehaviour
 	{
 		//Let other scripts run process after loading is done
 		Spawner.Instance.SpawnAll(info);
+		Timer = (Mathf.Max(delayBeforeStart, Spawner.Instance.GetOffset())) * -1;
 	}
 
 	private void Update()
@@ -59,11 +58,6 @@ public class SongPlayer : MonoBehaviour
 
 		if (partIndex > 0)// Stop the previous one
 			audioSource[info.part[partIndex - 1].singer].Stop();
-		else// start from 0 for the first one playing audio
-		{
-			Timer = 0.0f;
-			Spawner.Instance.StartActivating();
-		}
 
 		//For the one stated in this part(singer)
 		//Play from the time in this part(timing)

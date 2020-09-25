@@ -21,11 +21,10 @@ public class Spawner : MonoBehaviour
 
 	private void Awake()
 	{
-		if (Instance == null)
+		if (Instance == null || Instance != this)
 			Instance = this;
-		else
-			Destroy(this);
-		Neuroi.Speed = 3.0f;
+
+		Neuroi.Speed = 40.0f;
 		spawnPositions = new List<Vector3>();
 		for (int i = 0; i < 5; i++)
 		{
@@ -38,9 +37,10 @@ public class Spawner : MonoBehaviour
 		LoadNeuroi();
 	}
 
-	//*/TODO activate neuroi on right timing
+	//*/ activate neuroi on right timing
 	private void Update()
 	{
+		//TODO activate neuroi before song starts
 		if (SongPlayer.Instance.Timer >= delay)
 		{
 			ActivateNeuroi();
@@ -73,6 +73,9 @@ public class Spawner : MonoBehaviour
 		StartCoroutine(Spawn(spawnInfo.Count, 10));
 		//Speed setting && rhythm data
 		//receive spawn data (Calculated spawn timing, position, type and initial speed)
+
+		delay = spawnInfo[0].timing - offset;
+		spawnIndex = 0;
 	}
 
 	//Instantiate "chunk" amount of neurois per frame
@@ -94,9 +97,8 @@ public class Spawner : MonoBehaviour
 		}
 	}
 
-	public void StartActivating()
+	public float GetOffset()
 	{
-		delay = spawnInfo[0].timing-offset;
-		spawnIndex = 0;
+		return Mathf.Abs(FindObjectOfType<Spawner>().transform.position.z - FindObjectOfType<HitLaserTrigger>().transform.position.z) / Neuroi.Speed;
 	}
 }
