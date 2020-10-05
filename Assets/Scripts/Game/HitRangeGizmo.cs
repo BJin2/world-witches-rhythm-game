@@ -11,7 +11,11 @@ public class HitRangeGizmo : MonoBehaviour
 	private const float y = 1;
 
 	[DrawGizmo(GizmoType.Selected | GizmoType.NotInSelectionHierarchy)]
+#pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable IDE0060 // Remove unused parameter
 	static void DrawRange(HitRange range, GizmoType gizmoType)
+#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore IDE0051 // Remove unused private members
 	{
 		for (int i = 0; i < range.count; i++)
 		{
@@ -21,7 +25,11 @@ public class HitRangeGizmo : MonoBehaviour
 	}
 
 	[DrawGizmo(GizmoType.NotInSelectionHierarchy | GizmoType.Pickable)]
+#pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable IDE0060 // Remove unused parameter
 	static void DrawIcon(HitRange range, GizmoType gizmoType)
+#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore IDE0051 // Remove unused private members
 	{
 		string path = "Icons\\HitIcon.png";
 		Gizmos.DrawIcon(range.transform.position, path, false);
