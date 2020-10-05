@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class Flight : MonoBehaviour
+public partial class Flight : MonoBehaviour
 {
 #region used over different scenes
 	public static readonly List<string> CHARACTER_NAME = new List<string>
@@ -50,11 +50,8 @@ public class Flight : MonoBehaviour
 	{
 		LoadMember();
 
-		spawnPositions = new List<Vector3>();
-		for (int i = 0; i < 5; i++)
-		{
-			spawnPositions.Add(transform.Find("CharacterPosition" + i.ToString()).position);
-		}
+		if (spawnPositions == null)
+			FindSpawnPositions();
 	}
 
 	private void Start()
@@ -91,6 +88,14 @@ public class Flight : MonoBehaviour
 				member[i].transform.rotation, 
 				transform).GetComponent<Character>());
 			SongPlayer.Instance.AddAudio(flight.Last().GetComponent<AudioSource>());
+		}
+	}
+	private void FindSpawnPositions()
+	{
+		spawnPositions = new List<Vector3>();
+		for (int i = 0; i < 5; i++)
+		{
+			spawnPositions.Add(transform.Find("CharacterPosition" + i.ToString()).position);
 		}
 	}
 }
