@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Unity.Jobs.LowLevel.Unsafe;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -11,7 +10,7 @@ public class HitRangeGizmo : MonoBehaviour
 	private const float x = 12;
 	private const float y = 1;
 
-	[DrawGizmo(GizmoType.Selected | GizmoType.NotInSelectionHierarchy | GizmoType.Pickable)]
+	[DrawGizmo(GizmoType.Selected | GizmoType.NotInSelectionHierarchy)]
 	static void DrawRange(HitRange range, GizmoType gizmoType)
 	{
 		for (int i = 0; i < range.count; i++)
@@ -19,6 +18,13 @@ public class HitRangeGizmo : MonoBehaviour
 			Gizmos.color = range.colors[i];
 			Gizmos.DrawWireCube(range.transform.position, new Vector3(x, y, range.ranges[i]));
 		}
+	}
+
+	[DrawGizmo(GizmoType.NotInSelectionHierarchy | GizmoType.Pickable)]
+	static void DrawIcon(HitRange range, GizmoType gizmoType)
+	{
+		string path = "Icons\\HitIcon.png";
+		Gizmos.DrawIcon(range.transform.position, path, false);
 	}
 }
 
@@ -53,7 +59,7 @@ public class HitRangeEditor : Editor
 	}
 #endregion
 
-#region Gizmo
+#region Handle
 	private void OnSceneGUI()
 	{
 		HitRange hit = (HitRange)target;
