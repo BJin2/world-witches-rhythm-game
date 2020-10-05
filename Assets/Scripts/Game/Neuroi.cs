@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class Neuroi : MonoBehaviour
 {
 	//big neuroi and small neuroi classes will inherit this abstract class
 	public static float Speed { get; set; }
+	public static float HitPoisition { get; private set; }
 	private int score;
 
 	protected virtual void Update()
@@ -17,5 +15,12 @@ public abstract class Neuroi : MonoBehaviour
 	public virtual void Shoot()
 	{
 		Debug.Log("Laser");
+	}
+
+	public static float FindHitPosition()
+	{
+		GameObject temp = GameObject.FindGameObjectWithTag("Hit");
+		HitPoisition = temp.transform.position.z;
+		return HitPoisition;
 	}
 }

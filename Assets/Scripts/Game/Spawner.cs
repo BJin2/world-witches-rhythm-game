@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using UnityEditor;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -25,14 +23,7 @@ public class Spawner : MonoBehaviour
 			Instance = this;
 
 		Neuroi.Speed = 40.0f;
-		spawnPositions = new List<Vector3>();
-		for (int i = 0; i < 5; i++)
-		{
-			spawnPositions.Add(transform.Find("SpawnPosition" + i.ToString()).position);
-		}
-
-		float dist = Mathf.Abs(spawnPositions[0].z - FindObjectOfType<HitLaserTrigger>().transform.position.z);
-		offset = dist / Neuroi.Speed;
+		
 
 		LoadNeuroi();
 	}
@@ -40,7 +31,6 @@ public class Spawner : MonoBehaviour
 	//*/ activate neuroi on right timing
 	private void Update()
 	{
-		//TODO activate neuroi before song starts
 		if (SongPlayer.Instance.Timer >= delay)
 		{
 			ActivateNeuroi();
@@ -99,6 +89,15 @@ public class Spawner : MonoBehaviour
 
 	public float GetOffset()
 	{
-		return Mathf.Abs(FindObjectOfType<Spawner>().transform.position.z - FindObjectOfType<HitLaserTrigger>().transform.position.z) / Neuroi.Speed;
+		spawnPositions = new List<Vector3>();
+		for (int i = 0; i < 5; i++)
+		{
+			spawnPositions.Add(transform.Find("SpawnPosition" + i.ToString()).position);
+		}
+
+		float dist = Mathf.Abs(spawnPositions[0].z - Neuroi.FindHitPosition());
+		offset = dist / Neuroi.Speed;
+
+		return offset;
 	}
 }
