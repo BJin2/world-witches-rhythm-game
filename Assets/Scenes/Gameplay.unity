@@ -734,10 +734,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d069d60c6570a04f926a991d49925fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 4
   ranges:
   - 15
   - 10
-  - 4
+  - 5
   - 1
   colors:
   - {r: 1, g: 0, b: 0, a: 1}
