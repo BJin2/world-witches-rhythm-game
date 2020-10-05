@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Unity.Jobs.LowLevel.Unsafe;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -6,13 +7,14 @@ using UnityEditor;
 #if UNITY_EDITOR
 public class HitRangeGizmo : MonoBehaviour
 {
+	//Hard coded width and height for this project
 	private const float x = 12;
 	private const float y = 1;
 
 	[DrawGizmo(GizmoType.Selected | GizmoType.NotInSelectionHierarchy | GizmoType.Pickable)]
 	static void DrawRange(HitRange range, GizmoType gizmoType)
 	{
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < range.count; i++)
 		{
 			Gizmos.color = range.colors[i];
 			Gizmos.DrawWireCube(range.transform.position, new Vector3(x, y, range.ranges[i]));
@@ -23,64 +25,88 @@ public class HitRangeGizmo : MonoBehaviour
 [CustomEditor(typeof(HitRange))]
 public class HitRangeEditor : Editor
 {
+#region Inspector
+	public override void OnInspectorGUI()
+	{
+		base.OnInspectorGUI();
+
+		HitRange range = (HitRange)target;
+
+		EditorGUI.BeginChangeCheck();
+		int newCount = EditorGUILayout.IntField(new GUIContent("Range Step"), range.count);
+		if (EditorGUI.EndChangeCheck())
+		{
+			range.CountChanged(newCount);
+		}
+		EditorGUILayout.Space();
+
+		int count = 0;
+		for (int i = range.count-1; i >= 0; i--)
+		{
+			EditorGUI.indentLevel = 0;
+			EditorGUILayout.LabelField("Range " + count.ToString());
+			EditorGUI.indentLevel = 1;
+			range.ranges[i] = EditorGUILayout.FloatField(new GUIContent("Range"), range.ranges[i]);
+			range.colors[i] = EditorGUILayout.ColorField(new GUIContent("Color"), range.colors[i]);
+			count++;
+		}
+	}
+#endregion
+
+#region Gizmo
 	private void OnSceneGUI()
 	{
 		HitRange hit = (HitRange)target;
 
-		//EditorGUI.BeginChangeCheck();
-		//Vector3 newPos = Handles.Slider(hit.transform.position, Vector3.back, 0.5f, Handles.ConeHandleCap, 0.1f);
-		//if (EditorGUI.EndChangeCheck())
-		//{
-		//	Undo.RecordObject(hit, "Pos");
-		//	hit.transform.position = newPos;
-		//}
-
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < hit.count; i++)
 		{
-			ChangeRange(hit.transform.position, ref hit.ranges[i], hit.colors[i]);
+			hit.ranges[i] = ChangeRange(hit.transform.position, hit.ranges[i], hit.colors[i]);
 		}
+		hit.LimitRange();
 	}
 
-	private void ChangeRange(Vector3 origin, ref float range, Color color)
+	//Symmetry
+	private float ChangeRange(Vector3 origin, float range, Color color)
 	{
 		Handles.color = color;
+		float handleSize = 0.5f;
+		float handleHalf = handleSize / 2.0f;
 
 		//Forward
 		EditorGUI.BeginChangeCheck();
-		Vector3 handlePosition = new Vector3(origin.x, origin.y, origin.z + (range / 2.0f) + 0.25f);
-		Vector3 newRange = Handles.Slider(handlePosition, Vector3.forward, 0.5f, Handles.ConeHandleCap, 0.1f);
+		Vector3 handlePosition = new Vector3(origin.x, origin.y, origin.z + (range / 2.0f) + handleHalf);
+		Vector3 newRange = Handles.Slider(handlePosition, Vector3.forward, handleSize, Handles.ConeHandleCap, 0.1f);
 		if (EditorGUI.EndChangeCheck())
 		{
 			
 			HitRange hit = (HitRange)target;
 			Undo.RecordObject(hit, "Changed Range(Forward)");
 
-			range = (newRange.z - origin.z) + (range / 2.0f) - 0.25f;
+			range = (newRange.z - origin.z) + (range / 2.0f) - handleHalf;
 
 			//Debug.Log("H : " + handlePosition.z);
 			//Debug.Log("N : " + newRange.z);
 			//Debug.Log("R : " + range);
-
-			hit.LimitRange();
 		}
 
 		//backward
 		EditorGUI.BeginChangeCheck();
-		Vector3 handlePosition_back = new Vector3(origin.x, origin.y, origin.z - (range / 2.0f) - 0.25f);
-		Vector3 newRange_back = Handles.Slider(handlePosition_back, Vector3.back, 0.5f, Handles.ConeHandleCap, 0.1f);
+		Vector3 handlePosition_back = new Vector3(origin.x, origin.y, origin.z - (range / 2.0f) - handleHalf);
+		Vector3 newRange_back = Handles.Slider(handlePosition_back, Vector3.back, handleSize, Handles.ConeHandleCap, 0.1f);
 		if (EditorGUI.EndChangeCheck())
 		{
 			HitRange hit = (HitRange)target;
 			Undo.RecordObject(hit, "Changed Range(Backward)");
 
-			range = ((newRange_back.z + 0.25f) * -1) + origin.z + (range / 2.0f);
+			range = ((newRange_back.z + handleHalf) * -1) + origin.z + (range / 2.0f);
 
 			//Debug.Log("H : " + handlePosition_back.z);
 			//Debug.Log("N : " + newRange_back.z);
 			//Debug.Log("R : " + range);
-
-			hit.LimitRange();
 		}
+
+		return range;
 	}
+#endregion
 }
 #endif
