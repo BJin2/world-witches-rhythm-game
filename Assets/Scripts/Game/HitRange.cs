@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class HitRange : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public float[] ranges = {15, 10, 4, 1 };
+	public Color[] colors = { Color.red, Color.yellow, Color.blue, Color.green };
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void LimitRange()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			ranges[i] = Mathf.Max(ranges[i], ranges[i + 1]);
+		}
+		ranges[3] = Mathf.Max(ranges[3], 0);
+	}
 }
