@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+//TODO sync adjustment
+public partial class Spawner : MonoBehaviour
 {
 	public static Spawner Instance { get; private set; }
 
@@ -22,6 +23,7 @@ public class Spawner : MonoBehaviour
 		if (Instance == null || Instance != this)
 			Instance = this;
 
+		//TODO move this to speed setting(when implemented)
 		Neuroi.Speed = 40.0f;
 		
 
@@ -87,17 +89,22 @@ public class Spawner : MonoBehaviour
 		}
 	}
 
-	public float GetOffset()
+	private void FindSpawnPositions()
 	{
 		spawnPositions = new List<Vector3>();
 		for (int i = 0; i < 5; i++)
 		{
 			spawnPositions.Add(transform.Find("SpawnPosition" + i.ToString()).position);
 		}
+	}
+
+	public float GetOffset()
+	{
+		if(spawnPositions == null)
+			FindSpawnPositions();
 
 		float dist = Mathf.Abs(spawnPositions[0].z - Neuroi.FindHitPosition());
 		offset = dist / Neuroi.Speed;
-
 		return offset;
 	}
 }

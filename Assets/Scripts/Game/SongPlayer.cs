@@ -32,8 +32,8 @@ public class SongPlayer : MonoBehaviour
 	private void Start()
 	{
 		//Let other scripts run process after loading is done
-		Spawner.Instance.SpawnAll(info);
 		Timer = (Mathf.Max(delayBeforeStart, Spawner.Instance.GetOffset())) * -1;
+		Spawner.Instance.SpawnAll(info);
 	}
 
 	private void Update()
