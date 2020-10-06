@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class GameplayInput
 {
+	public delegate void ProcessInput();
+
 	private const int screenDiv = 5;
+
+	private int screenWidth = 0;
+	private KeyCode[] keys = null; //Keys for pressing lanes
+	private int[] keycodes = null; //All keycode values to find out pressed key
+
+	public ProcessInput processGameplayInput = null;
 
 	public GameplayInput(params KeyCode[] key)
 	{
@@ -22,10 +30,10 @@ public class GameplayInput
 		}
 	}
 
-	private int screenWidth = 0;
-	private KeyCode[] keys = null; //Keys for pressing lanes
-	private int[] keycodes = null; //All keycode values to find out pressed key
-
+	public int ScreenDiv(Vector2 mousePosition)
+	{
+		return ScreenDiv(mousePosition.x);
+	}
 	public int ScreenDiv(Vector3 mousePosition)
 	{
 		return ScreenDiv(mousePosition.x);
@@ -45,6 +53,20 @@ public class GameplayInput
 
 		return -1;
 	}
+
+
+	public void DetermineInputType(ProcessInput touchVersion, ProcessInput keyboardVersion)
+	{
+		if (Input.touchSupported && (SystemInfo.deviceType == DeviceType.Handheld))
+		{
+			processGameplayInput = touchVersion;
+		}
+		else
+		{
+			processGameplayInput = keyboardVersion;
+		}
+	}
+
 	public Queue<KeyCode> PressedKeys()
 	{
 		Queue<KeyCode> result = new Queue<KeyCode>();

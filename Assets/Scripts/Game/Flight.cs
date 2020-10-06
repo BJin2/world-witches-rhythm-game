@@ -65,6 +65,7 @@ public partial class Flight : MonoBehaviour
 	{
 		
 		gInput = new GameplayInput(keys);
+		gInput.DetermineInputType(TouchInput, KeyboardInput);
 
 		LoadMember();
 
@@ -79,21 +80,7 @@ public partial class Flight : MonoBehaviour
 
 	private void Update()
 	{
-		//For touch input
-		for (int i = 0; i < Input.touchCount; i++)
-		{
-			Shoot(gInput.ScreenDiv(Input.GetTouch(i).position.x));
-		}
-
-		//For keyboard input
-		if (Input.anyKeyDown)
-		{
-			var pressed = gInput.PressedKeys();
-			while (pressed.Count > 0)
-			{
-				Shoot(gInput.ScreenDiv(pressed.Dequeue()));
-			}
-		}
+		gInput.processGameplayInput?.Invoke();
 
 		//Deal with missed neurois
 		while (Spawner.Instance.crashedNeurois.Count > 0)
@@ -132,7 +119,29 @@ public partial class Flight : MonoBehaviour
 			spawnPositions.Add(transform.Find("CharacterPosition" + i.ToString()).position);
 		}
 	}
-#endregion
+	#endregion
+
+	private void TouchInput()
+	{
+		//For touch input
+		for (int i = 0; i < Input.touchCount; i++)
+		{
+			Shoot(gInput.ScreenDiv(Input.GetTouch(i).position.x));
+		}
+	}
+
+	private void KeyboardInput()
+	{
+		//For keyboard input
+		if (Input.anyKeyDown)
+		{
+			var pressed = gInput.PressedKeys();
+			while (pressed.Count > 0)
+			{
+				Shoot(gInput.ScreenDiv(pressed.Dequeue()));
+			}
+		}
+	}
 
 	public void Shoot(int memberIndex)
 	{
