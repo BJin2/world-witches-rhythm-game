@@ -28,7 +28,7 @@ public abstract class Neuroi : MonoBehaviour
 
 		if (transform.position.z <= 0)
 		{
-			ShootDown();
+			Explode();
 			Spawner.Instance.NeuroiCrashed(this);
 		}
 	}
