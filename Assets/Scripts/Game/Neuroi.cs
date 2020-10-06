@@ -13,11 +13,24 @@ public abstract class Neuroi : MonoBehaviour
 	{
 		transform.Translate(transform.forward * Speed * Time.deltaTime * -1);
 		//TODO start calculating score within certain range
+		float dist = Mathf.Abs(transform.position.z - HitPoisition);
+		int closestStep = 0;
+		for (int i = 0; i < HitRange.Instance.count; i++)
+		{
+			if (dist < HitRange.Instance.ranges[i])
+				closestStep = i;
+			else
+				break;
+		}
+
+		score = closestStep * 3;
 	}
 
-	public virtual void Shoot()
+	public void Explode()
 	{
-		Debug.Log("Laser");
+		//TODO explosion particle
+		//TODO increase score
+		//TODO combo indicator && 
 	}
 
 	public static float FindHitPosition()

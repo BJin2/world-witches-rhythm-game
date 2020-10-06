@@ -1,15 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class HitRange : MonoBehaviour
 {
+	public static HitRange Instance { get; private set; }
+
 	[HideInInspector]
 	public int count = 4;
 	[HideInInspector]
 	public List<float> ranges = new List<float> {15, 10, 5, 1 };
 	[HideInInspector]
 	public List<Color> colors = new List<Color> { Color.red, Color.yellow, Color.blue, Color.green };
+
+	private void Awake()
+	{
+		Instance = this;
+	}
 
 	public void LimitRange()
 	{
