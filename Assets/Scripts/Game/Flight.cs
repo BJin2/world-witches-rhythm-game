@@ -21,8 +21,8 @@ public partial class Flight : MonoBehaviour
 	};
 	//hard coded initializing for fast testing
 	private static List<string> flightMember = new List<string>{
-		"Miyafuji",
-		"Sakamoto",
+		"Charlotte",
+		"Barkhorn",
 		"Lynette",
 		"Perrine",
 		"Minna"

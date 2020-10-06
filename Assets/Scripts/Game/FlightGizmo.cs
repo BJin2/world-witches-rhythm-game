@@ -11,6 +11,9 @@ public partial class Flight : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
+		if (Application.isPlaying)
+			return;
+
 		if (spawnPositions == null || spawnPositions.Count == 0)
 			return;
 
