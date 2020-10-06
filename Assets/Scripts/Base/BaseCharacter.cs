@@ -63,7 +63,7 @@ public class BaseCharacter : MonoBehaviour
 
 		if (Input.GetKeyDown(trigger))
 		{
-			action();
+			action?.Invoke();
 		}
 	}
 
