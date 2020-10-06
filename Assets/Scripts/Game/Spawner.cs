@@ -11,7 +11,9 @@ public partial class Spawner : MonoBehaviour
 	private List<Vector3> spawnPositions = null;
 	private List<GameObject> neuroi_original = null;
 	private List<Note> spawnInfo = null;
+
 	private List<Neuroi> neurois = null;
+	public Queue<Neuroi> crashedNeurois { get; private set; }// Missed neurois
 
 	private int spawnIndex = 0;
 	private float delay = float.MaxValue;
@@ -25,12 +27,12 @@ public partial class Spawner : MonoBehaviour
 
 		//TODO move this to speed setting(when implemented)
 		Neuroi.Speed = 40.0f;
-		
+
+		crashedNeurois = new Queue<Neuroi>();
 
 		LoadNeuroi();
 	}
 
-	//*/ activate neuroi on right timing
 	private void Update()
 	{
 		if (SongPlayer.Instance.Timer >= delay)
@@ -38,18 +40,8 @@ public partial class Spawner : MonoBehaviour
 			ActivateNeuroi();
 		}
 	}
-	//*/
-	private void ActivateNeuroi()
-	{
-		if (spawnIndex >= spawnInfo.Count)
-			return;
 
-		neurois[spawnIndex].gameObject.SetActive(true);
-		spawnIndex++;
-		if(spawnIndex < spawnInfo.Count)
-			delay = spawnInfo[spawnIndex].timing - offset;
-	}
-
+#region Spawning
 	private void LoadNeuroi()
 	{
 		//TODO Add more types of neuroi
@@ -57,6 +49,15 @@ public partial class Spawner : MonoBehaviour
 		{
 			Resources.Load("Prefabs/Neuroi", typeof(GameObject)) as GameObject
 		};
+	}
+
+	private void FindSpawnPositions()
+	{
+		spawnPositions = new List<Vector3>();
+		for (int i = 0; i < 5; i++)
+		{
+			spawnPositions.Add(transform.Find("SpawnPosition" + i.ToString()).position);
+		}
 	}
 
 	public void SpawnAll(SongInfo info)
@@ -85,22 +86,52 @@ public partial class Spawner : MonoBehaviour
 					spawnPositions[spawnInfo[i].position],
 					neuroi_original[spawnInfo[i].type].transform.rotation,
 					transform).GetComponent<Neuroi>());
+			neurois.Last().SetLane(spawnInfo[i].position);
 			neurois.Last().gameObject.SetActive(false);
 		}
 	}
 
-	private void FindSpawnPositions()
+	private void ActivateNeuroi()
 	{
-		spawnPositions = new List<Vector3>();
-		for (int i = 0; i < 5; i++)
-		{
-			spawnPositions.Add(transform.Find("SpawnPosition" + i.ToString()).position);
-		}
+		if (spawnIndex >= spawnInfo.Count)
+			return;
+
+		neurois[spawnIndex].gameObject.SetActive(true);
+		spawnIndex++;
+		if (spawnIndex < spawnInfo.Count)
+			delay = spawnInfo[spawnIndex].timing - offset;
+	}
+#endregion
+
+
+#region Managing Neurois
+
+	public void NeuroiCrashed(Neuroi neuroi)
+	{
+		crashedNeurois.Enqueue(neuroi);
 	}
 
+	public Neuroi GetFirstActiveNeuroiOnLane(int lane)
+	{
+		var result = from n in neurois 
+					 where n.gameObject.activeInHierarchy && (n.lane == lane) 
+					 orderby n.transform.position.z 
+					 select n;
+
+		var list = result.ToList();
+		if (list != null && list.Count > 0)
+			return list[0];
+
+
+		return null;
+	}
+
+#endregion
+
+//Just util function
 	public float GetOffset()
 	{
-		if(spawnPositions == null)
+		if (spawnPositions == null)
 			FindSpawnPositions();
 
 		float dist = Mathf.Abs(spawnPositions[0].z - Neuroi.FindHitPosition());

@@ -7,12 +7,13 @@ public abstract class Neuroi : MonoBehaviour
 	public static float Speed { get; set; }
 	public static float HitPoisition { get; private set; }
 
-	private int score;
+	private int score = 0;
+	public int lane { get; private set; }
 
 	protected virtual void Update()
 	{
 		transform.Translate(transform.forward * Speed * Time.deltaTime * -1);
-		//TODO start calculating score within certain range
+		
 		float dist = Mathf.Abs(transform.position.z - HitPoisition);
 		int closestStep = 0;
 		for (int i = 0; i < HitRange.Instance.count; i++)
@@ -24,13 +25,32 @@ public abstract class Neuroi : MonoBehaviour
 		}
 
 		score = closestStep * 3;
+
+		if (transform.position.z <= 0)
+		{
+			ShootDown();
+			Spawner.Instance.NeuroiCrashed(this);
+		}
 	}
 
-	public void Explode()
+	private void Explode()
 	{
+		gameObject.SetActive(false);
+	}
+	public bool ShootDown()
+	{
+		if (score <= 0)
+			return false;
 		//TODO explosion particle
 		//TODO increase score
-		//TODO combo indicator && 
+		//TODO combo indicator && result text(miss bad nice good perfect)
+		Explode();
+		return true;
+	}
+
+	public void SetLane(int l)
+	{
+		lane = l;
 	}
 
 	public static float FindHitPosition()

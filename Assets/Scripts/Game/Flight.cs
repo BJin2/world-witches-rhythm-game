@@ -4,7 +4,7 @@ using UnityEngine;
 
 public partial class Flight : MonoBehaviour
 {
-#region used over different scenes
+#region used over different scenes (Character selection)
 	public static readonly List<string> CHARACTER_NAME = new List<string>
 	{
 		"Miyafuji",
@@ -38,26 +38,6 @@ public partial class Flight : MonoBehaviour
 		} 
 		set { flightMember = value; } }
 	public static int currentMemberIndex = -1;
-#endregion
-
-	private List<Character> flight = null;
-	private List<GameObject> member = null;
-
-	[SerializeField]
-	private List<Vector3> spawnPositions = null;
-	
-	private void Awake()
-	{
-		LoadMember();
-
-		if (spawnPositions == null)
-			FindSpawnPositions();
-	}
-
-	private void Start()
-	{
-		SpawnMember();
-	}
 
 	public static void Init()
 	{
@@ -69,6 +49,60 @@ public partial class Flight : MonoBehaviour
 		}
 		currentMemberIndex = -1;
 	}
+#endregion
+
+	private List<Character> flight = null;
+	private List<GameObject> member = null;
+
+	[SerializeField]
+	private List<Vector3> spawnPositions = null;
+	[SerializeField]
+	private KeyCode[] keys = null; // keys for game play input
+	
+	GameplayInput gInput = null;
+	
+	private void Awake()
+	{
+		
+		gInput = new GameplayInput(keys);
+
+		LoadMember();
+
+		if (spawnPositions == null)
+			FindSpawnPositions();
+	}
+
+	private void Start()
+	{
+		SpawnMember();
+	}
+
+	private void Update()
+	{
+		//For touch input
+		for (int i = 0; i < Input.touchCount; i++)
+		{
+			Shoot(gInput.ScreenDiv(Input.GetTouch(i).position.x));
+		}
+
+		//For keyboard input
+		if (Input.anyKeyDown)
+		{
+			var pressed = gInput.PressedKeys();
+			while (pressed.Count > 0)
+			{
+				Shoot(gInput.ScreenDiv(pressed.Dequeue()));
+			}
+		}
+
+		//Deal with missed neurois
+		while (Spawner.Instance.crashedNeurois.Count > 0)
+		{
+			Shield(Spawner.Instance.crashedNeurois.Dequeue().lane);
+		}
+	}
+
+#region Spawning Characters
 	private void LoadMember()
 	{
 		member = new List<GameObject>();
@@ -97,5 +131,23 @@ public partial class Flight : MonoBehaviour
 		{
 			spawnPositions.Add(transform.Find("CharacterPosition" + i.ToString()).position);
 		}
+	}
+#endregion
+
+	public void Shoot(int memberIndex)
+	{
+		if (memberIndex < 0)
+			return;
+
+		var neuroi = Spawner.Instance.GetFirstActiveNeuroiOnLane(memberIndex);
+		neuroi?.ShootDown();
+
+		//TODO shooting animation
+	}
+
+	public void Shield(int memberIndex)
+	{
+		//TODO sheild animation
+		//Debug.Log("Shield");
 	}
 }
