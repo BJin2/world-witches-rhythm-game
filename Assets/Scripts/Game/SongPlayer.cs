@@ -34,8 +34,10 @@ public class SongPlayer : MonoBehaviour
 
 	private void Start()
 	{
-		//Let other scripts run process after loading is done
-		Timer = (Mathf.Max(delayBeforeStart, Spawner.Instance.GetOffset())) * -1;
+		Time.timeScale = 0.0f;
+		PauseDelay.Instance.AfterDelay += () => { Time.timeScale = 1.0f; };
+		PauseDelay.Instance.Delay(delayBeforeStart);
+		Timer = Spawner.Instance.GetOffset() * -1;
 		Spawner.Instance.SpawnAll(info);
 	}
 
@@ -70,5 +72,24 @@ public class SongPlayer : MonoBehaviour
 		partIndex++;
 		if(partIndex < info.part.Count)
 			delay = info.part[partIndex].timing;
+	}
+	public void Pause()
+	{
+		audioSource.Pause();
+		Time.timeScale = 0.0f;
+		PauseDelay.Instance.AfterDelay += Resume;
+	}
+	public void UnPause()
+	{
+		//Prevent pausedelay to run several times over and over
+		if (Time.timeScale != 0.0f)
+			return;
+
+		PauseDelay.Instance.Delay(3.0f);
+	}
+	private void Resume()
+	{
+		Time.timeScale = 1.0f;
+		audioSource.UnPause();
 	}
 }

@@ -118,7 +118,7 @@ public partial class Flight : MonoBehaviour
 			spawnPositions.Add(transform.Find("CharacterPosition" + i.ToString()).position);
 		}
 	}
-	#endregion
+#endregion
 
 
 #region Gameplay control
