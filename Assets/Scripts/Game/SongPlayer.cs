@@ -92,4 +92,8 @@ public class SongPlayer : MonoBehaviour
 		Time.timeScale = 1.0f;
 		audioSource.UnPause();
 	}
+	public bool IsPaused()
+	{
+		return Time.timeScale == 0.0f;
+	}
 }

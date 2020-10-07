@@ -80,6 +80,9 @@ public partial class Flight : MonoBehaviour
 
 	private void Update()
 	{
+		if (SongPlayer.Instance.IsPaused())
+			return;
+
 		gInput.processGameplayInput?.Invoke();
 
 		//Deal with missed neurois
