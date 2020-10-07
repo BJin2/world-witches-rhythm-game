@@ -54,8 +54,9 @@ public partial class Flight : MonoBehaviour
 	private List<Character> flight = null;
 	private List<GameObject> member = null;
 
-	[SerializeField]
 	private List<Vector3> spawnPositions = null;
+	public Neuroi[] closestNeurois { get; private set; }
+
 	[SerializeField]
 	private KeyCode[] keys = null; // keys for game play input
 	
@@ -63,7 +64,7 @@ public partial class Flight : MonoBehaviour
 	
 	private void Awake()
 	{
-		
+		closestNeurois = new Neuroi[5];
 		gInput = new GameplayInput(keys);
 		gInput.DetermineInputType(TouchInput, KeyboardInput);
 
@@ -82,6 +83,15 @@ public partial class Flight : MonoBehaviour
 	{
 		if (SongPlayer.Instance.IsPaused())
 			return;
+
+		for (int i = 0; i < 5; i++)
+		{
+			if (IsMissing(closestNeurois[i]))
+			{
+				closestNeurois[i] = Spawner.Instance.GetFirstActiveNeuroiOnLane(i);
+				flight[i].SetClosest(closestNeurois[i]);
+			}
+		}
 
 		gInput.processGameplayInput?.Invoke();
 
@@ -155,10 +165,8 @@ public partial class Flight : MonoBehaviour
 		if (memberIndex < 0)
 			return;
 
-		var neuroi = Spawner.Instance.GetFirstActiveNeuroiOnLane(memberIndex);
-
-		if(neuroi != null)
-			neuroi.ShootDown();
+		if(!IsMissing(closestNeurois[memberIndex]))
+			closestNeurois[memberIndex].ShootDown();
 
 		flight[memberIndex].Shoot();
 	}
@@ -168,5 +176,21 @@ public partial class Flight : MonoBehaviour
 		//Debug.Log("Shield");
 		flight[memberIndex].Shield();
 	}
-#endregion
+	#endregion
+
+	public static bool IsMissing(UnityEngine.MonoBehaviour obj)
+	{
+		if (obj == null)
+			return true;
+
+		try
+		{
+			obj.GetInstanceID();
+			return !obj.gameObject.activeInHierarchy;
+		}
+		catch
+		{
+			return true;
+		}
+	}
 }
