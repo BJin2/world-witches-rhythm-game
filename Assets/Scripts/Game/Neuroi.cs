@@ -10,6 +10,9 @@ public abstract class Neuroi : MonoBehaviour
 	private int score = 0;
 	public int Lane { get; private set; }
 
+	[SerializeField]
+	private GameObject piece = null;
+
 	protected virtual void Update()
 	{
 		transform.Translate(transform.forward * Speed * Time.deltaTime * -1);
@@ -35,6 +38,12 @@ public abstract class Neuroi : MonoBehaviour
 
 	private void Explode()
 	{
+		if (piece != null)
+		{
+			piece.SetActive(true);
+			piece.transform.parent = null;
+			Destroy(piece, 0.3f);
+		}
 		gameObject.SetActive(false);
 	}
 	public bool ShootDown()
