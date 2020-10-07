@@ -108,7 +108,6 @@ public partial class Flight : MonoBehaviour
 				spawnPositions[i], 
 				member[i].transform.rotation, 
 				transform).GetComponent<Character>());
-			SongPlayer.Instance.AddAudio(flight.Last().GetComponent<AudioSource>());
 		}
 	}
 	private void FindSpawnPositions()
@@ -121,6 +120,8 @@ public partial class Flight : MonoBehaviour
 	}
 	#endregion
 
+
+#region Gameplay control
 	private void TouchInput()
 	{
 		//For touch input
@@ -163,4 +164,5 @@ public partial class Flight : MonoBehaviour
 		//Debug.Log("Shield");
 		flight[memberIndex].Shield();
 	}
+#endregion
 }

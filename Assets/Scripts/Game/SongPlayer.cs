@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class SongPlayer : MonoBehaviour
 {
 	public static SongPlayer Instance { get; private set; }
@@ -10,12 +11,13 @@ public class SongPlayer : MonoBehaviour
 	private int partIndex = 0;
 	private SongInfo info = null;
 
-	private List<AudioSource> audioSource = null;
+	private AudioSource audioSource = null;
 	private AudioClip[] song = null;
 
 	[SerializeField]
 	private float delayBeforeStart = 3.0f;
 	private float delay = 0.0f;
+	private float songLength = -1.0f;
 	public float Timer { get; private set; }
 
 	private void Awake()
@@ -25,8 +27,9 @@ public class SongPlayer : MonoBehaviour
 			Instance = this;
 
 		Timer = float.MinValue;
-		audioSource = new List<AudioSource>();
+		audioSource = GetComponent<AudioSource>();
 		SongLoader.Load(ref info, ref song, songName);
+		songLength = song[0].length;
 	}
 
 	private void Start()
@@ -39,7 +42,7 @@ public class SongPlayer : MonoBehaviour
 	private void Update()
 	{
 		//Do nothing when song is over
-		if (Timer > audioSource[0].clip.length)
+		if (Timer > songLength)
 			return;
 
 		Timer += Time.deltaTime;
@@ -56,33 +59,16 @@ public class SongPlayer : MonoBehaviour
 		if (partIndex >= info.part.Count)
 			return;
 
-		if (partIndex > 0)// Stop the previous one
-			audioSource[info.part[partIndex - 1].singer].Stop();
-
 		//For the one stated in this part(singer)
 		//Play from the time in this part(timing)
 		Part part = info.part[partIndex];
-		audioSource[part.singer].time = part.timing;
-		audioSource[part.singer].Play();
+		audioSource.clip = song[part.singer];
+		audioSource.time = part.timing;
+		audioSource.Play();
 
 		//Prepare for next;
 		partIndex++;
 		if(partIndex < info.part.Count)
 			delay = info.part[partIndex].timing;
-	}
-
-	public void AddAudio(AudioSource aud)
-	{
-		audioSource.Add(aud);
-		if (audioSource.Count == Flight.FlightMember.Count)
-			AddSong();
-	}
-
-	public void AddSong()
-	{
-		for (int i = 0; i < audioSource.Count; i++)
-		{
-			audioSource[i].clip = song[i];
-		}
 	}
 }
