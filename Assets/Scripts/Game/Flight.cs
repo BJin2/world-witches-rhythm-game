@@ -111,6 +111,7 @@ public partial class Flight : MonoBehaviour
 				spawnPositions[i], 
 				member[i].transform.rotation, 
 				transform).GetComponent<Character>());
+			flight[i].SetLane(i);
 		}
 	}
 	private void FindSpawnPositions()

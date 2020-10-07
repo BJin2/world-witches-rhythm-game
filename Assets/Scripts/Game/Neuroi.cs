@@ -61,6 +61,7 @@ public abstract class Neuroi : MonoBehaviour
 	{
 		Lane = l;
 	}
+	public int GetScore() => score;
 
 	public static float FindHitPosition()
 	{
