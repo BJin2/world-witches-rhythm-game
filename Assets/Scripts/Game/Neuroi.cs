@@ -6,7 +6,7 @@ public abstract class Neuroi : MonoBehaviour
 	//All neurois share the same speed and hit position
 	public static float Speed { get; set; }
 	public static float HitPoisition { get; private set; }
-
+	public const int SCORE_MULTIPLIER = 3;
 	private int score = 0;
 	public int Lane { get; private set; }
 
@@ -22,15 +22,16 @@ public abstract class Neuroi : MonoBehaviour
 		for (int i = 0; i < HitRange.Instance.count; i++)
 		{
 			if (dist < HitRange.Instance.ranges[i])
-				closestStep = i;
+				closestStep = i+1;
 			else
 				break;
 		}
 
-		score = closestStep * 3;
+		score = closestStep * SCORE_MULTIPLIER;
 
 		if (transform.position.z <= 0)
 		{
+			score = 0;
 			Explode();
 			Spawner.Instance.NeuroiCrashed(this);
 		}
@@ -44,15 +45,14 @@ public abstract class Neuroi : MonoBehaviour
 			piece.transform.parent = null;
 			Destroy(piece, 0.3f);
 		}
+		HitResult.Instance.Judge(score);
 		gameObject.SetActive(false);
 	}
 	public bool ShootDown()
 	{
 		if (score <= 0)
 			return false;
-		//TODO explosion particle
 		//TODO increase score
-		//TODO combo indicator && result text(miss bad nice good perfect)
 		Explode();
 		return true;
 	}

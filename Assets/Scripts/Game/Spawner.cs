@@ -26,7 +26,7 @@ public partial class Spawner : MonoBehaviour
 			Instance = this;
 
 		//TODO move this to speed setting(when implemented)
-		Neuroi.Speed = 40.0f;
+		Neuroi.Speed = 10.0f;
 
 		CrashedNeurois = new Queue<Neuroi>();
 
