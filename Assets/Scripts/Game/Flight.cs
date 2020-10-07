@@ -126,7 +126,9 @@ public partial class Flight : MonoBehaviour
 		//For touch input
 		for (int i = 0; i < Input.touchCount; i++)
 		{
-			Shoot(gInput.ScreenDiv(Input.GetTouch(i).position.x));
+			Touch t = Input.GetTouch(i);
+			if(t.phase == TouchPhase.Began)
+				Shoot(gInput.ScreenDiv(t.position.x));
 		}
 	}
 
