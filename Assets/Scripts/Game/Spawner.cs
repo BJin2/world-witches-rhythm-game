@@ -13,7 +13,7 @@ public partial class Spawner : MonoBehaviour
 	private List<Note> spawnInfo = null;
 
 	private List<Neuroi> neurois = null;
-	public Queue<Neuroi> crashedNeurois { get; private set; }// Missed neurois
+	public Queue<Neuroi> CrashedNeurois { get; private set; }// Missed neurois
 
 	private int spawnIndex = 0;
 	private float delay = float.MaxValue;
@@ -28,7 +28,7 @@ public partial class Spawner : MonoBehaviour
 		//TODO move this to speed setting(when implemented)
 		Neuroi.Speed = 40.0f;
 
-		crashedNeurois = new Queue<Neuroi>();
+		CrashedNeurois = new Queue<Neuroi>();
 
 		LoadNeuroi();
 	}
@@ -108,13 +108,13 @@ public partial class Spawner : MonoBehaviour
 
 	public void NeuroiCrashed(Neuroi neuroi)
 	{
-		crashedNeurois.Enqueue(neuroi);
+		CrashedNeurois.Enqueue(neuroi);
 	}
 
 	public Neuroi GetFirstActiveNeuroiOnLane(int lane)
 	{
 		var result = from n in neurois 
-					 where n.gameObject.activeInHierarchy && (n.lane == lane) 
+					 where n.gameObject.activeInHierarchy && (n.Lane == lane) 
 					 orderby n.transform.position.z 
 					 select n;
 

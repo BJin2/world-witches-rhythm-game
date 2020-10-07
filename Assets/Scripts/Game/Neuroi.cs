@@ -8,7 +8,7 @@ public abstract class Neuroi : MonoBehaviour
 	public static float HitPoisition { get; private set; }
 
 	private int score = 0;
-	public int lane { get; private set; }
+	public int Lane { get; private set; }
 
 	protected virtual void Update()
 	{
@@ -50,7 +50,7 @@ public abstract class Neuroi : MonoBehaviour
 
 	public void SetLane(int l)
 	{
-		lane = l;
+		Lane = l;
 	}
 
 	public static float FindHitPosition()

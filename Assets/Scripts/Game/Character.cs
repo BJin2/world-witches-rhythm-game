@@ -5,5 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Character : MonoBehaviour
 {
+	public void Shoot()
+	{
 
+	}
+
+	public void Shield()
+	{
+
+	}
 }

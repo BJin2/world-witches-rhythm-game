@@ -83,9 +83,9 @@ public partial class Flight : MonoBehaviour
 		gInput.processGameplayInput?.Invoke();
 
 		//Deal with missed neurois
-		while (Spawner.Instance.crashedNeurois.Count > 0)
+		while (Spawner.Instance.CrashedNeurois.Count > 0)
 		{
-			Shield(Spawner.Instance.crashedNeurois.Dequeue().lane);
+			Shield(Spawner.Instance.CrashedNeurois.Dequeue().Lane);
 		}
 	}
 
@@ -151,14 +151,16 @@ public partial class Flight : MonoBehaviour
 			return;
 
 		var neuroi = Spawner.Instance.GetFirstActiveNeuroiOnLane(memberIndex);
-		neuroi?.ShootDown();
 
-		//TODO shooting animation
+		if(neuroi != null)
+			neuroi.ShootDown();
+
+		flight[memberIndex].Shoot();
 	}
 
 	public void Shield(int memberIndex)
 	{
-		//TODO sheild animation
 		//Debug.Log("Shield");
+		flight[memberIndex].Shield();
 	}
 }

@@ -8,9 +8,9 @@ public class GameplayInput
 
 	private const int screenDiv = 5;
 
-	private int screenWidth = 0;
-	private KeyCode[] keys = null; //Keys for pressing lanes
-	private int[] keycodes = null; //All keycode values to find out pressed key
+	private readonly int screenWidth = 0;
+	private readonly KeyCode[] keys = null; //Keys for pressing lanes
+	private readonly int[] keycodes = null; //All keycode values to find out pressed key
 
 	public ProcessInput processGameplayInput = null;
 
