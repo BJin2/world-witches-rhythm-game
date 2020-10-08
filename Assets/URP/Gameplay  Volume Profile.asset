@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 0, g: 0, b: 0, a: 1}
+    m_Value: {r: 0.2208971, g: 0.2961314, b: 0.6415094, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -25,7 +25,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.71}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.293
+    m_Value: 0.241
     min: 0
     max: 1
   smoothness:
@@ -58,69 +58,7 @@ MonoBehaviour:
     m_Value: {x: 0.9386101, y: 1, z: 0.9736474, w: 0}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.90925765, y: 0.9828795, z: 1, w: 0}
---- !u!114 &-4869301208877962011
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
-  m_Name: DepthOfField
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  mode:
-    m_OverrideState: 1
-    m_Value: 2
-  gaussianStart:
-    m_OverrideState: 1
-    m_Value: 10
-    min: 0
-  gaussianEnd:
-    m_OverrideState: 1
-    m_Value: 15
-    min: 0
-  gaussianMaxRadius:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 0.5
-    max: 1.5
-  highQualitySampling:
-    m_OverrideState: 1
-    m_Value: 0
-  focusDistance:
-    m_OverrideState: 1
-    m_Value: 21.6
-    min: 0.1
-  aperture:
-    m_OverrideState: 1
-    m_Value: 1.4
-    min: 1
-    max: 32
-  focalLength:
-    m_OverrideState: 1
-    m_Value: 260
-    min: 1
-    max: 300
-  bladeCount:
-    m_OverrideState: 1
-    m_Value: 5
-    min: 3
-    max: 9
-  bladeCurvature:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 0
-    max: 1
-  bladeRotation:
-    m_OverrideState: 1
-    m_Value: 0
-    min: -180
-    max: 180
+    m_Value: {x: 0.8487046, y: 0.913475, z: 1, w: 0}
 --- !u!114 &-4434187378425475516
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -194,7 +132,6 @@ MonoBehaviour:
   - {fileID: -6797752603343789917}
   - {fileID: 2973333625107853355}
   - {fileID: -7919630504176697290}
-  - {fileID: -4869301208877962011}
   - {fileID: 1565352358724447277}
 --- !u!114 &1565352358724447277
 MonoBehaviour:
