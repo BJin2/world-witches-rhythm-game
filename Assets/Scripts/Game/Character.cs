@@ -2,16 +2,22 @@
 
 public class Character : MonoBehaviour
 {
+	private int lane = -1;
+
 	private LineRenderer laneIndicator = null;
 	private readonly Color[] colorStep = { Color.black, Color.red, Color.yellow, Color.blue, Color.green };
 	private Neuroi closestNeuroi = null;
-
-	private int lane = -1;
 
 	[SerializeField][Range(0.0f, 5.0f)]
 	private float shieldCountdown = 0.3f;
 	private float shieldTimer = 0.0f;
 	private GameObject shield = null;
+
+	[SerializeField][Range(0.0f, 5.0f)]
+	private float muzzleCountdown = 0.1f;
+	private float muzzleTimer = 0.0f;
+	private GameObject muzzleFlash = null;
+	
 
 	private void Awake()
 	{
@@ -29,27 +35,16 @@ public class Character : MonoBehaviour
 				break;
 			}
 		}
+
+		muzzleFlash = transform.Find("MuzzleFlash").gameObject;
 	}
 
 	private void Update()
 	{
 		LaneIndicator();
 
-		if (shieldTimer > 0)
-		{
-			shieldTimer -= Time.deltaTime;
-			if (!shield.activeInHierarchy)
-			{
-				shield.SetActive(true);
-			}
-		}
-		else
-		{
-			if (shield.activeInHierarchy)
-			{
-				shield.SetActive(false);
-			}
-		}
+		ShieldCountdown();
+		ShootCountdown();
 	}
 
 	public void SetLane(int l)
@@ -59,7 +54,7 @@ public class Character : MonoBehaviour
 
 	public void Shoot()
 	{
-
+		muzzleTimer = muzzleCountdown;
 	}
 
 	public void Shield()
@@ -89,5 +84,42 @@ public class Character : MonoBehaviour
 	public void SetClosest(Neuroi closest)
 	{
 		closestNeuroi = closest;
+	}
+
+	private void ShieldCountdown()
+	{
+		if (shieldTimer > 0)
+		{
+			shieldTimer -= Time.deltaTime;
+			if (!shield.activeInHierarchy)
+			{
+				shield.SetActive(true);
+			}
+		}
+		else
+		{
+			if (shield.activeInHierarchy)
+			{
+				shield.SetActive(false);
+			}
+		}
+	}
+	private void ShootCountdown()
+	{
+		if (muzzleTimer > 0)
+		{
+			muzzleTimer -= Time.deltaTime;
+			if (!muzzleFlash.activeInHierarchy)
+			{
+				muzzleFlash.SetActive(true);
+			}
+		}
+		else
+		{
+			if (muzzleFlash.activeInHierarchy)
+			{
+				muzzleFlash.SetActive(false);
+			}
+		}
 	}
 }

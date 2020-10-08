@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5906151651134062620}
   - component: {fileID: 8754502998389255940}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shizuka
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611eb3831fa6b2b478ccd8780440eead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shieldCountdown: 0.3
 --- !u!1 &2974902786667223928
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +58,7 @@ GameObject:
   - component: {fileID: 1249290873855230823}
   - component: {fileID: 2957804350644271569}
   - component: {fileID: 6939805099387259117}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MeshPlaceholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6483998651528971308}
   - component: {fileID: 4883146691047611508}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
