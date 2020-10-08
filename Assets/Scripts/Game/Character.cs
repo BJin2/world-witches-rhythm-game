@@ -8,17 +8,48 @@ public class Character : MonoBehaviour
 
 	private int lane = -1;
 
+	[SerializeField][Range(0.0f, 5.0f)]
+	private float shieldCountdown = 0.3f;
+	private float shieldTimer = 0.0f;
+	private GameObject shield = null;
+
 	private void Awake()
 	{
 		laneIndicator = GetComponentInChildren<LineRenderer>();
 		laneIndicator.SetPosition(0, transform.position);
 		laneIndicator.SetPosition(1, transform.position + (Vector3.forward*50));
 		SetLaneIndicatorColor(colorStep[0]);
+
+		GameObject[] shields = GameObject.FindGameObjectsWithTag("Shield");
+		foreach (GameObject sh in shields)
+		{
+			if (sh.transform.parent == transform)
+			{
+				shield = sh;
+				break;
+			}
+		}
 	}
 
 	private void Update()
 	{
 		LaneIndicator();
+
+		if (shieldTimer > 0)
+		{
+			shieldTimer -= Time.deltaTime;
+			if (!shield.activeInHierarchy)
+			{
+				shield.SetActive(true);
+			}
+		}
+		else
+		{
+			if (shield.activeInHierarchy)
+			{
+				shield.SetActive(false);
+			}
+		}
 	}
 
 	public void SetLane(int l)
@@ -33,7 +64,7 @@ public class Character : MonoBehaviour
 
 	public void Shield()
 	{
-
+		shieldTimer = shieldCountdown;
 	}
 
 	private void LaneIndicator()
