@@ -165,10 +165,10 @@ public partial class Flight : MonoBehaviour
 		if (memberIndex < 0)
 			return;
 
-		if(!IsMissing(closestNeurois[memberIndex]))
-			closestNeurois[memberIndex].ShootDown();
-
 		flight[memberIndex].Shoot();
+
+		if (!IsMissing(closestNeurois[memberIndex]))
+			closestNeurois[memberIndex].ShootDown();
 	}
 
 	public void Shield(int memberIndex)

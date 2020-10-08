@@ -6,6 +6,7 @@ public class Character : MonoBehaviour
 
 	private LineRenderer laneIndicator = null;
 	private readonly Color[] colorStep = { Color.black, Color.red, Color.yellow, Color.blue, Color.green };
+	private int colorStepIndex = 0;
 	private Neuroi closestNeuroi = null;
 
 	[SerializeField][Range(0.0f, 5.0f)]
@@ -41,7 +42,11 @@ public class Character : MonoBehaviour
 
 	private void Update()
 	{
+		/*/
 		LaneIndicator();
+		/*/
+		LaneIndicatorOnShoot();
+		//*/
 
 		ShieldCountdown();
 		ShootCountdown();
@@ -55,6 +60,10 @@ public class Character : MonoBehaviour
 	public void Shoot()
 	{
 		muzzleTimer = muzzleCountdown;
+		if (!Flight.IsMissing(closestNeuroi))
+			colorStepIndex = closestNeuroi.GetScore() / Neuroi.SCORE_MULTIPLIER;
+		else
+			colorStepIndex = 0;
 	}
 
 	public void Shield()
@@ -119,7 +128,22 @@ public class Character : MonoBehaviour
 			if (muzzleFlash.activeInHierarchy)
 			{
 				muzzleFlash.SetActive(false);
+				colorStepIndex = 0;
 			}
 		}
+	}
+	private void LaneIndicatorOnShoot()
+	{
+		SetLaneIndicatorColor(colorStep[colorStepIndex]);
+
+		if (Flight.IsMissing(closestNeuroi))
+		{
+			laneIndicator.SetPosition(1, transform.position + (Vector3.forward * 50));
+		}
+		else
+		{
+			laneIndicator.SetPosition(1, closestNeuroi.transform.position);
+		}
+		
 	}
 }
