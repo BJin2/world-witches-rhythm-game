@@ -48,7 +48,7 @@ public class BaseCharacter : MonoBehaviour
 		if (direction != Vector3.zero)
 		{
 			//Play animation
-			direction = new Vector3(direction.x, transform.position.y, direction.z);
+			direction = new Vector3(direction.x, 0, direction.z);
 			direction.Normalize();
 			Quaternion look = Quaternion.LookRotation(direction, Vector3.up);
 			transform.rotation = Quaternion.Slerp(transform.rotation, look, rotateSpeed * Time.deltaTime);
