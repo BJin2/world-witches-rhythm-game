@@ -35,7 +35,8 @@ public class SongPlayer : MonoBehaviour
 	private void Start()
 	{
 		Time.timeScale = 0.0f;
-		PauseDelay.Instance.AfterDelay += () => { Time.timeScale = 1.0f; };
+		PauseDelay.Instance.DarkBG(true);
+		PauseDelay.Instance.AfterDelay += () => { Time.timeScale = 1.0f; PauseDelay.Instance.DarkBG(false); };
 		PauseDelay.Instance.Delay(delayBeforeStart);
 		Timer = Spawner.Instance.GetOffset() * -1;
 		Spawner.Instance.SpawnAll(info);
@@ -88,6 +89,13 @@ public class SongPlayer : MonoBehaviour
 		audioSource.Pause();
 		Time.timeScale = 0.0f;
 		PauseDelay.Instance.AfterDelay += Resume;
+		PauseDelay.Instance.DarkBG(true);
+		SelectionWindow.Instance.Show("P A U S E", "Game Paused", new List<SelectionWindow.ButtonInfo>
+		{
+			new SelectionWindow.ButtonInfo("RESUME", UnPause),
+			new SelectionWindow.ButtonInfo("RESTART", Replay),
+			new SelectionWindow.ButtonInfo("RETREAT", ()=>{ AsyncSceneLoader.LoadAsyncAdditive("Base", this); Time.timeScale = 1.0f; })
+		});
 	}
 	public void UnPause()
 	{
@@ -101,6 +109,7 @@ public class SongPlayer : MonoBehaviour
 	{
 		Time.timeScale = 1.0f;
 		audioSource.UnPause();
+		PauseDelay.Instance.DarkBG(false);
 	}
 	public bool IsPaused()
 	{

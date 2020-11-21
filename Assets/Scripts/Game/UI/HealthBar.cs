@@ -46,8 +46,12 @@ public class HealthBar : MonoBehaviour
 
 		if (health <= 0)
 		{
+			SelectionWindow.Instance.Show("G A M E   O V E R", "Your flight health reached 0.\nYour flight cannot continue the mission", new List<SelectionWindow.ButtonInfo>
+			{
+				new SelectionWindow.ButtonInfo("RESTART", SongPlayer.Instance.Replay),
+				new SelectionWindow.ButtonInfo("RETREAT", ()=>{ AsyncSceneLoader.LoadAsyncAdditive("Base", this); Time.timeScale = 1.0f; })
+			});
 			SongPlayer.Instance.Pause();
-			//TOdO Game over message
 		}
 	}
 }

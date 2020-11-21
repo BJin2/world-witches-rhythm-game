@@ -38,7 +38,7 @@ public class SelectionWindow : MonoBehaviour
 	{
 		Instance = this;
 		title = window.transform.Find("TitleBG").GetComponentInChildren<TextMeshProUGUI>();
-		instruction = window.GetComponentInChildren<TextMeshProUGUI>();
+		instruction = window.transform.Find("Instruction").GetComponent<TextMeshProUGUI>();
 		buttons = new Button[3];
 		buttons[0] = window.transform.Find("Left").GetComponent<Button>();
 		buttons[1] = window.transform.Find("Right").GetComponent<Button>();
