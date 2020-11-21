@@ -52,6 +52,9 @@ public class SelectionWindow : MonoBehaviour
 
 	public void Show(string _title, string _instruction, List<ButtonInfo> _buttons)
 	{
+		if (window.activeInHierarchy)
+			return;
+
 		title.text = _title;
 		instruction.text = _instruction;
 		if (_buttons.Count == 1)
