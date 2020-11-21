@@ -15,5 +15,10 @@ public class PauseResumeTest : MonoBehaviour
         {
             SongPlayer.Instance.UnPause();
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SongPlayer.Instance.Replay();
+        }
 	}
 }

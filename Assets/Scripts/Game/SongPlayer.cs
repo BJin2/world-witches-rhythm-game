@@ -54,6 +54,14 @@ public class SongPlayer : MonoBehaviour
 		}
 	}
 
+	public void Replay()
+	{
+		//Timer = Spawner.Instance.GetOffset() * -1;
+		//delay = 0.0f;
+		//audioSource.Stop();
+		UnityEngine.SceneManagement.SceneManager.LoadScene("Gameplay");
+}
+
 	//Read info.part and change the one playing audio
 	private void Play()
 	{
@@ -73,6 +81,8 @@ public class SongPlayer : MonoBehaviour
 		if(partIndex < info.part.Count)
 			delay = info.part[partIndex].timing;
 	}
+
+#region Pause
 	public void Pause()
 	{
 		audioSource.Pause();
@@ -96,4 +106,5 @@ public class SongPlayer : MonoBehaviour
 	{
 		return Time.timeScale == 0.0f;
 	}
+#endregion
 }
