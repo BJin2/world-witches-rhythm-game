@@ -99,6 +99,7 @@ public partial class Flight : MonoBehaviour
 		while (Spawner.Instance.CrashedNeurois.Count > 0)
 		{
 			Shield(Spawner.Instance.CrashedNeurois.Dequeue().Lane);
+			HealthBar.Instance.DecreaseHealth();
 		}
 	}
 
