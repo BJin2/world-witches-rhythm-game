@@ -2678,7 +2678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1867376896}
   m_Layer: 5
-  m_Name: Combo
+  m_Name: Criteria5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2940,7 +2940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1998700310}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Criteria6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

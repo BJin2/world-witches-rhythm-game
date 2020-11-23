@@ -30,7 +30,7 @@ public class FinalResult : MonoBehaviour
 
 		GetDividedCriteria(new List<int> {12, 3, 4567, 8, 9 });
 		GetDividedCombo(5432);
-		GetDividedScore(4321);
+		GetDividedScore(654321);
 		StartCoroutine(CriteriaCountUp());
 	}
 
@@ -63,7 +63,7 @@ public class FinalResult : MonoBehaviour
 
 	private IEnumerator CriteriaCountUp()
 	{
-		foreach (var listIndex in Enumerable.Range(0, 5))
+		foreach (var listIndex in Enumerable.Range(0, 7))
 		{
 			foreach (var i in Enumerable.Range(0, dividedNumber[listIndex].Count))
 			{
@@ -74,19 +74,6 @@ public class FinalResult : MonoBehaviour
 					texts[listIndex].text = numberText.ArrayToString();
 					yield return new WaitForSecondsRealtime(0.1f);
 				}
-			}
-		}
-	}
-	private IEnumerator CountUpDelay(TMP text, List<int> list)
-	{
-		foreach (var i in Enumerable.Range(0, list.Count))
-		{
-			char[] numberText = text.text.ToCharArray();
-			foreach (var j in Enumerable.Range(0, list[i] + 1))
-			{
-				numberText[numberText.Length - 1 - i] = j.ToString()[0];
-				text.text = numberText.ArrayToString();
-				yield return new WaitForSecondsRealtime(0.1f);
 			}
 		}
 	}
