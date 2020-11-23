@@ -1691,7 +1691,7 @@ GameObject:
   - component: {fileID: 1065497772}
   - component: {fileID: 1065497771}
   - component: {fileID: 1065497770}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CharacterPlaceholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1816,7 +1816,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 350, y: -153}
-  m_SizeDelta: {x: 600, y: -362}
+  m_SizeDelta: {x: 650, y: -362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1066538917
 MonoBehaviour:
@@ -2469,6 +2469,8 @@ GameObject:
   - component: {fileID: 1523714681}
   - component: {fileID: 1523714683}
   - component: {fileID: 1523714682}
+  - component: {fileID: 1523714684}
+  - component: {fileID: 1523714685}
   m_Layer: 5
   m_Name: TitleBG
   m_TagString: Untagged
@@ -2534,6 +2536,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523714680}
   m_CullTransparentMesh: 0
+--- !u!95 &1523714684
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523714680}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 998df97a81f119e4ca7f5c0c1f9c777f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1523714685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523714680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a67d6761d983474ab948cf6075e9dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1793499743
 GameObject:
   m_ObjectHideFlags: 0
@@ -2762,7 +2795,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Combo
+  m_text: Max Combo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2825,7 +2858,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -122.5065, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2929,7 +2962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274deaf5a81ea4044a4c21b63127d946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: {fileID: 1793499745}
+  interval: 0.06
 --- !u!1 &1998700309
 GameObject:
   m_ObjectHideFlags: 0
@@ -3111,7 +3144,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2079795125}
   - component: {fileID: 2079795124}
-  - component: {fileID: 2079795123}
   - component: {fileID: 2079795122}
   m_Layer: 0
   m_Name: Camera
@@ -3140,7 +3172,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
@@ -3151,14 +3183,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &2079795123
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079795121}
-  m_Enabled: 1
 --- !u!20 &2079795124
 Camera:
   m_ObjectHideFlags: 0
@@ -3190,7 +3214,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 512
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3210,7 +3234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2079795121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.88, y: 0.76, z: 0}
+  m_LocalPosition: {x: -0.85, y: 0.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -12,9 +12,10 @@ public class FinalResult : MonoBehaviour
 	private List<List<int>> dividedNumber;
 	private List<TMP> texts;
 
-
 	[SerializeField]
-	private TMP test;
+	private float interval = 0.1f;
+
+	private int step = 0;
 
 	private void Awake()
 	{
@@ -31,7 +32,32 @@ public class FinalResult : MonoBehaviour
 		GetDividedCriteria(new List<int> {12, 3, 4567, 8, 9 });
 		GetDividedCombo(5432);
 		GetDividedScore(654321);
-		StartCoroutine(CriteriaCountUp());
+
+		gameObject.GetComponentInChildren<TitleAnimationEventHolder>().AnimationFinished += () => { step = 1; StartCoroutine(CriteriaCountUp()); };
+	}
+
+	private void Update()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (step == 0)
+			{
+				Animator anim = GetComponentInChildren<Animator>();
+				anim.Play("ResultTitleAppear", 0, 1);
+				step = 1;
+			}
+			else if (step == 1)
+			{
+				//TODO stop all coroutine and finish count
+				StopAllCoroutines();
+				FinishCountUp();
+			}
+			else
+			{
+				AsyncSceneLoader.LoadAsyncAdditive("Base", this);
+				return;
+			}
+		}
 	}
 
 	private void GetDividedCriteria(List<int> criteria)
@@ -61,6 +87,19 @@ public class FinalResult : MonoBehaviour
 		}
 	}
 
+	private void FinishCountUp()
+	{
+		foreach (var listIndex in Enumerable.Range(0, 7))
+		{
+			foreach (var i in Enumerable.Range(0, dividedNumber[listIndex].Count))
+			{
+				char[] numberText = texts[listIndex].text.ToCharArray();
+				numberText[numberText.Length - 1 - i] = dividedNumber[listIndex][i].ToString()[0];
+				texts[listIndex].text = numberText.ArrayToString();
+			}
+		}
+		step = 2;
+	}
 	private IEnumerator CriteriaCountUp()
 	{
 		foreach (var listIndex in Enumerable.Range(0, 7))
@@ -76,5 +115,6 @@ public class FinalResult : MonoBehaviour
 				}
 			}
 		}
+		step = 2;
 	}
 }
