@@ -22,6 +22,8 @@ public class FinalResult : MonoBehaviour
 	{
 		dividedNumber = new List<List<int>>();
 		texts = new List<TMP>();
+		songName = transform.Find("TitleBG").Find("SongName").GetComponent<TMP>();
+		songName.text = SongPlayer.songName;
 
 		var temp = transform.Find("DetailBG");
 		foreach(var i in Enumerable.Range(0, 7))
@@ -30,9 +32,9 @@ public class FinalResult : MonoBehaviour
 			texts.Add(temp.Find($"Criteria{i}").Find("Number").GetComponent<TMP>());
 		}
 
-		GetDividedCriteria(new List<int> {12, 3, 4567, 8, 9 });
-		GetDividedCombo(5432);
-		GetDividedScore(654321);
+		GetDividedCriteria(HitResult.Instance.NumCriteria);
+		GetDividedCombo(HitResult.Instance.MaxCombo);
+		GetDividedScore(HitResult.Instance.Score);
 
 		gameObject.GetComponentInChildren<TitleAnimationEventHolder>().AnimationFinished += () => { step = 1; StartCoroutine(CriteriaCountUp()); };
 	}
@@ -62,6 +64,7 @@ public class FinalResult : MonoBehaviour
 
 	private void GetDividedCriteria(List<int> criteria)
 	{
+		criteria.Reverse();
 		foreach (var i in Enumerable.Range(0, criteria.Count))
 		{
 			//Preserve original value

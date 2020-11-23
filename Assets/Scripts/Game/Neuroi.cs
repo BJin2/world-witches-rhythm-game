@@ -52,7 +52,6 @@ public abstract class Neuroi : MonoBehaviour
 	{
 		if (score <= 0)
 			return false;
-		//TODO increase score
 		Explode();
 		return true;
 	}
