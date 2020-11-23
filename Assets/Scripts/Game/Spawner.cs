@@ -15,6 +15,8 @@ public partial class Spawner : MonoBehaviour
 	private List<Neuroi> neurois = null;
 	public Queue<Neuroi> CrashedNeurois { get; private set; }// Missed neurois
 
+	public int TotalNeuroi { get; private set; }
+
 	private int spawnIndex = 0;
 	private float delay = float.MaxValue;
 
@@ -89,6 +91,7 @@ public partial class Spawner : MonoBehaviour
 			neurois.Last().SetLane(spawnInfo[i].position);
 			neurois.Last().gameObject.SetActive(false);
 		}
+		TotalNeuroi = neurois.Count;
 	}
 
 	private void ActivateNeuroi()

@@ -2,18 +2,28 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+using TMP = TMPro.TextMeshProUGUI;
+
 public class HitResult : MonoBehaviour
 {
 	public static HitResult Instance { get; private set; }
 
 	[SerializeField]
-	private TextMeshProUGUI criteriaText = null;
+	private TMP criteriaText = null;
 	private string[] criteria = { "Miss", "Bad", "Nice" , "Good", "Perfect" };
 
 	[SerializeField]
-	private TextMeshProUGUI comboText = null;
+	private TMP comboText = null;
 	private Animator comboAnim = null;
 	private int combo = 0;
+
+	[SerializeField]
+	private UnityEngine.UI.Slider scoreBar;
+	[SerializeField]
+	private TMP scoreText;
+	[SerializeField]
+	private Sprite sRankImage;
+	private float sRankStandard = 0;
 
 	public int MaxCombo { get; private set; }
 	public List<int> NumCriteria { get; private set; }
@@ -33,7 +43,7 @@ public class HitResult : MonoBehaviour
 
 	public void Judge(int score)
 	{
-		Score += score;
+		AddScore(score);
 		int step = score / Neuroi.SCORE_MULTIPLIER;
 		if (step < 3)
 		{
@@ -62,5 +72,24 @@ public class HitResult : MonoBehaviour
 		comboAnim.StopPlayback();
 		comboText.transform.parent.gameObject.SetActive(false);
 		combo = 0;
+	}
+
+	private void AddScore(int amount)
+	{
+		if (sRankStandard == 0)
+		{
+			sRankStandard = Neuroi.SCORE_MULTIPLIER * criteria.Length * Spawner.Instance.TotalNeuroi * 0.6f;
+		}
+		Score += amount;
+		scoreText.text = Score.ToString();
+		scoreBar.value = (float)Score/sRankStandard;
+		if (scoreBar.value < 1)
+		{
+			scoreBar.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 1, scoreBar.value);
+		}
+		else
+		{
+			scoreBar.fillRect.GetComponent<UnityEngine.UI.Image>().sprite = sRankImage;
+		}
 	}
 }
