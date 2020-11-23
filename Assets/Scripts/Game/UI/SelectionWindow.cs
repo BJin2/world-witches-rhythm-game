@@ -29,10 +29,10 @@ public class SelectionWindow : MonoBehaviour
 	}
 
 	[SerializeField]
-	private GameObject window;
-	private TextMeshProUGUI title;
-	private TextMeshProUGUI instruction;
-	private Button[] buttons;
+	private GameObject window = null;
+	private TextMeshProUGUI title = null;
+	private TextMeshProUGUI instruction = null;
+	private Button[] buttons = null;
 
 	private void Awake()
 	{

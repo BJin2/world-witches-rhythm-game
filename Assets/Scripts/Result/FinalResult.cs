@@ -9,8 +9,9 @@ using TMP = TMPro.TextMeshProUGUI;
 
 public class FinalResult : MonoBehaviour
 {
-	private List<List<int>> dividedNumber;
-	private List<TMP> texts;
+	private List<List<int>> dividedNumber = null;
+	private List<TMP> texts = null;
+	private TMP songName = null;
 
 	[SerializeField]
 	private float interval = 0.1f;
@@ -48,7 +49,6 @@ public class FinalResult : MonoBehaviour
 			}
 			else if (step == 1)
 			{
-				//TODO stop all coroutine and finish count
 				StopAllCoroutines();
 				FinishCountUp();
 			}
@@ -111,7 +111,7 @@ public class FinalResult : MonoBehaviour
 				{
 					numberText[numberText.Length - 1 - i] = j.ToString()[0];
 					texts[listIndex].text = numberText.ArrayToString();
-					yield return new WaitForSecondsRealtime(0.1f);
+					yield return new WaitForSecondsRealtime(interval);
 				}
 			}
 		}

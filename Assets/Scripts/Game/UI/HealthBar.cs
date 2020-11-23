@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
     public static HealthBar Instance { get; private set; }
 
     [SerializeField]
-    private UnityEngine.UI.Slider healthBar;
+    private UnityEngine.UI.Slider healthBar = null;
     private float health = 0;
 
 	private void Awake()
@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
 	//Decrease fixed amount regardless of situation
 	public void DecreaseHealth()
 	{
-		ChangeHealth(-0.05f);
+		ChangeHealth(-0.00f);
 	}
 
 	private void ChangeHealth(float amount)

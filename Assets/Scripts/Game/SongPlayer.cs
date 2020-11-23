@@ -20,6 +20,9 @@ public class SongPlayer : MonoBehaviour
 	private float songLength = -1.0f;
 	public float Timer { get; private set; }
 
+	[SerializeField]
+	AfterClearAnimationEventHolder animEventHolder = null;
+
 	private void Awake()
 	{
 		Cursor.lockState = CursorLockMode.None;
@@ -46,7 +49,15 @@ public class SongPlayer : MonoBehaviour
 	{
 		//Do nothing when song is over
 		if (Timer > songLength)
-			return;
+		{
+			if (animEventHolder != null)
+			{
+				animEventHolder.gameObject.SetActive(true);
+				animEventHolder.AnimationFinished += () => { AsyncSceneLoader.LoadAsyncAdditive("Result", this); };
+				animEventHolder.StartAnimation();
+				animEventHolder = null;
+			}
+		}
 
 		Timer += Time.deltaTime;
 		if (Timer >= delay)
