@@ -18,7 +18,26 @@ public class PauseResumeTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SongPlayer.Instance.Replay();
+            //SongPlayer.Instance.Replay();
+            SelectionWindow.Instance.Show("Test", "Testing window popup", new List<SelectionWindow.ButtonInfo>
+            {
+                //new SelectionWindow.ButtonInfo("test1 button", Test1),
+                new SelectionWindow.ButtonInfo("test2 button", Test2),
+                new SelectionWindow.ButtonInfo("test3 button", delegate(){ Test3(12); })
+            });
         }
 	}
+
+    private void Test1()
+    {
+        Debug.Log("Test1");
+    }
+    private void Test2()
+    {
+        Debug.Log("Test2");
+    }
+    private void Test3(int a)
+    {
+        Debug.Log(a.ToString());
+    }
 }

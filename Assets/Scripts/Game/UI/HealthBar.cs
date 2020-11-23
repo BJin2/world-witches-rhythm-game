@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
     public static HealthBar Instance { get; private set; }
 
     [SerializeField]
-    private UnityEngine.UI.Slider healthBar;
+    private UnityEngine.UI.Slider healthBar = null;
     private float health = 0;
 
 	private void Awake()
@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
 	//Decrease fixed amount regardless of situation
 	public void DecreaseHealth()
 	{
-		ChangeHealth(-0.05f);
+		ChangeHealth(-0.00f);
 	}
 
 	private void ChangeHealth(float amount)
@@ -46,8 +46,12 @@ public class HealthBar : MonoBehaviour
 
 		if (health <= 0)
 		{
+			SelectionWindow.Instance.Show("G A M E   O V E R", "Your flight health reached 0.\nYour flight cannot continue the mission", new List<SelectionWindow.ButtonInfo>
+			{
+				new SelectionWindow.ButtonInfo("RESTART", SongPlayer.Instance.Replay),
+				new SelectionWindow.ButtonInfo("RETREAT", ()=>{ AsyncSceneLoader.LoadAsyncAdditive("Base", this); Time.timeScale = 1.0f; })
+			});
 			SongPlayer.Instance.Pause();
-			//TOdO Game over message
 		}
 	}
 }

@@ -12,6 +12,8 @@ public class PauseDelay : MonoBehaviour
 	private GameObject pauseCanvas = null;
 	[SerializeField]
 	private TextMeshProUGUI countdownText = null;
+	[SerializeField]
+	private GameObject pauseBG = null;
 	public event DelayDone AfterDelay = null;
 
 	//To prevent overlapped delay
@@ -20,6 +22,11 @@ public class PauseDelay : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
+	}
+
+	public void DarkBG(bool on)
+	{
+		pauseBG.SetActive(on);
 	}
 
 	public void Delay(float delay)
