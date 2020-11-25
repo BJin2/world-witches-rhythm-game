@@ -20,7 +20,7 @@ public class HitRangeGizmo : MonoBehaviour
 		for (int i = 0; i < range.count; i++)
 		{
 			Gizmos.color = range.colors[i];
-			Gizmos.DrawWireCube(range.transform.position, new Vector3(x, y, range.ranges[i]));
+			Gizmos.DrawWireCube(range.transform.position, new Vector3(x, y, range.ranges[i]*2));
 		}
 	}
 
@@ -88,15 +88,16 @@ public class HitRangeEditor : Editor
 
 		//Forward
 		EditorGUI.BeginChangeCheck();
-		Vector3 handlePosition = new Vector3(origin.x, origin.y, origin.z + (range / 2.0f) + handleHalf);
-		Vector3 newRange = Handles.Slider(handlePosition, Vector3.forward, handleSize, Handles.ConeHandleCap, 0.1f);
+		Vector3 handlePosition = new Vector3(origin.x, origin.y, origin.z + range + handleHalf);
+		Vector3 newRange = Handles.Slider(handlePosition, Vector3.forward, handleSize, Handles.ConeHandleCap, 1);
+		
 		if (EditorGUI.EndChangeCheck())
 		{
-			
 			HitRange hit = (HitRange)target;
 			Undo.RecordObject(hit, "Changed Range(Forward)");
 
-			range = (newRange.z - origin.z) + (range / 2.0f) - handleHalf;
+			range = newRange.z - origin.z - handleHalf;
+			//(newRange.z - origin.z) + (range / 2.0f) - handleHalf;
 
 			//Debug.Log("H : " + handlePosition.z);
 			//Debug.Log("N : " + newRange.z);
@@ -105,7 +106,7 @@ public class HitRangeEditor : Editor
 
 		//backward
 		EditorGUI.BeginChangeCheck();
-		Vector3 handlePosition_back = new Vector3(origin.x, origin.y, origin.z - (range / 2.0f) - handleHalf);
+		Vector3 handlePosition_back = new Vector3(origin.x, origin.y, origin.z - range - handleHalf);
 		Vector3 newRange_back = Handles.Slider(handlePosition_back, Vector3.back, handleSize, Handles.ConeHandleCap, 0.1f);
 		if (EditorGUI.EndChangeCheck())
 		{
