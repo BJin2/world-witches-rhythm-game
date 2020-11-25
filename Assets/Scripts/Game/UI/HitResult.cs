@@ -18,11 +18,11 @@ public class HitResult : MonoBehaviour
 	private int combo = 0;
 
 	[SerializeField]
-	private UnityEngine.UI.Slider scoreBar;
+	private UnityEngine.UI.Slider scoreBar = null;
 	[SerializeField]
-	private TMP scoreText;
+	private TMP scoreText = null;
 	[SerializeField]
-	private Sprite sRankImage;
+	private Sprite sRankImage = null;
 	private float sRankStandard = 0;
 
 	public int MaxCombo { get; private set; }
@@ -78,7 +78,7 @@ public class HitResult : MonoBehaviour
 	{
 		if (sRankStandard == 0)
 		{
-			sRankStandard = Neuroi.SCORE_MULTIPLIER * criteria.Length * Spawner.Instance.TotalNeuroi * 0.6f;
+			sRankStandard = Neuroi.SCORE_MULTIPLIER * criteria.Length * NeuroiManager.Instance.TotalNeuroi * 0.6f;
 		}
 		Score += amount;
 		scoreText.text = Score.ToString();

@@ -6,22 +6,22 @@ using UnityEditor;
 #if UNITY_EDITOR
 public partial class Spawner : MonoBehaviour
 {
-	private void OnDrawGizmos()
-	{
-		string path = "Icons\\SpawnerIcon.png";
+	//private void OnDrawGizmos()
+	//{
+	//	string path = "Icons\\SpawnerIcon.png";
 
-		if (spawnPositions == null || spawnPositions.Count == 0)
-			return;
+	//	if (spawnPositions == null || spawnPositions.Count == 0)
+	//		return;
 
-		foreach (Vector3 spawnPosition in spawnPositions)
-		{
-			Gizmos.DrawIcon(spawnPosition, path, false);
-		}
-	}
+	//	foreach (Vector3 spawnPosition in spawnPositions)
+	//	{
+	//		Gizmos.DrawIcon(spawnPosition, path, false);
+	//	}
+	//}
 
-	private void OnValidate()
-	{
-		FindSpawnPositions();
-	}
+	//private void OnValidate()
+	//{
+	//	FindSpawnPositions();
+	//}
 }
 #endif

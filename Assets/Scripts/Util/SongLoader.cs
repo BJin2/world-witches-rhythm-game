@@ -1,11 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class SongLoader
+public static class SongLoader
 {
+	public static event EventHandler<SongLoadEventArgs> LoadingDone;
+
 	public static void Load(ref SongInfo info, ref AudioClip[] clip, string songName)
 	{
 		LoadSong(ref clip, songName);
 		LoadSongInfo(ref info, songName);
+		LoadingDone?.Invoke(null, new SongLoadEventArgs(info));
+		LoadingDone = null;
 	}
 
 	//Load song audio files based on flight members

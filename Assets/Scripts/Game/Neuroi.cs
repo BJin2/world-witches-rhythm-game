@@ -33,7 +33,7 @@ public abstract class Neuroi : MonoBehaviour
 		{
 			score = 0;
 			Explode();
-			Spawner.Instance.NeuroiCrashed(this);
+			NeuroiManager.Instance.NeuroiCrashed(this);
 		}
 	}
 
@@ -50,6 +50,7 @@ public abstract class Neuroi : MonoBehaviour
 	}
 	public bool ShootDown()
 	{
+		//Ignore when its' too far from hit position
 		if (score <= 0)
 			return false;
 		Explode();

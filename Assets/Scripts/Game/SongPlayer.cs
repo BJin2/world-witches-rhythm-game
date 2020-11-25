@@ -29,25 +29,24 @@ public class SongPlayer : MonoBehaviour
 		if (Instance == null || Instance != this)
 			Instance = this;
 
-		Timer = float.MinValue;
 		audioSource = GetComponent<AudioSource>();
-		SongLoader.Load(ref info, ref song, songName);
-		songLength = song[0].length;
-	}
 
-	private void Start()
-	{
 		Time.timeScale = 0.0f;
 		PauseDelay.Instance.DarkBG(true);
 		PauseDelay.Instance.AfterDelay += () => { Time.timeScale = 1.0f; PauseDelay.Instance.DarkBG(false); };
 		PauseDelay.Instance.Delay(delayBeforeStart);
-		Timer = Spawner.Instance.GetOffset() * -1;
-		Spawner.Instance.SpawnAll(info);
+	}
+
+	private void Start()
+	{
+		SongLoader.Load(ref info, ref song, songName);
+		songLength = song[0].length;
+
+		Timer = NeuroiManager.Instance.Offset * -1;
 	}
 
 	private void Update()
 	{
-		//Do nothing when song is over
 		if (Timer > songLength)
 		{
 			if (animEventHolder != null)
@@ -68,9 +67,6 @@ public class SongPlayer : MonoBehaviour
 
 	public void Replay()
 	{
-		//Timer = Spawner.Instance.GetOffset() * -1;
-		//delay = 0.0f;
-		//audioSource.Stop();
 		UnityEngine.SceneManagement.SceneManager.LoadScene("Gameplay");
 }
 
