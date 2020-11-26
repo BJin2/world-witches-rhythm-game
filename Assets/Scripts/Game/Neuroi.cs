@@ -28,7 +28,7 @@ public abstract class Neuroi : MonoBehaviour
 		}
 
 		score = closestStep * SCORE_MULTIPLIER;
-
+		Debug.Log(score);
 		if (transform.position.z <= 0)
 		{
 			score = 0;
@@ -50,7 +50,7 @@ public abstract class Neuroi : MonoBehaviour
 	}
 	public bool ShootDown()
 	{
-		//Ignore when its' too far from hit position
+		//Ignore when it's too far from hit position
 		if (score <= 0)
 			return false;
 		Explode();
