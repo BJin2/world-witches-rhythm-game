@@ -6,6 +6,7 @@ public abstract class Neuroi : MonoBehaviour
 	//All neurois share the same speed and hit position
 	public static float Speed { get; set; }
 	public static float HitPoisition { get; private set; }
+	public static bool ClonePiece { get; set; }
 	public const int SCORE_MULTIPLIER = 3;
 	private int score = 0;
 	public int Lane { get; private set; }
@@ -28,7 +29,6 @@ public abstract class Neuroi : MonoBehaviour
 		}
 
 		score = closestStep * SCORE_MULTIPLIER;
-		Debug.Log(score);
 		if (transform.position.z <= 0)
 		{
 			score = 0;
@@ -41,9 +41,18 @@ public abstract class Neuroi : MonoBehaviour
 	{
 		if (piece != null)
 		{
-			piece.SetActive(true);
-			piece.transform.parent = null;
-			Destroy(piece, 0.3f);
+			if (ClonePiece)
+			{
+				GameObject clone = Instantiate(piece, piece.transform.position, piece.transform.rotation);
+				clone.SetActive(true);
+				Destroy(clone, 0.3f);
+			}
+			else
+			{
+				piece.SetActive(true);
+				piece.transform.parent = null;
+				Destroy(piece, 0.3f);
+			}
 		}
 		HitResult.Instance.Judge(score);
 		gameObject.SetActive(false);

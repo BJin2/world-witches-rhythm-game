@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using TMP = TMPro.TextMeshProUGUI;
 
+[System.Serializable]
 public abstract class HitResultComponent
 {
-	[SerializeField]
-	protected TMP text;
-	[SerializeField]
-	protected int value;
+	public TMP text = null;
+	protected int value = int.MaxValue;
 
-	protected abstract void Judge(int score);
+	public abstract void Init();
+
+	public abstract void Judge(int score);
 }

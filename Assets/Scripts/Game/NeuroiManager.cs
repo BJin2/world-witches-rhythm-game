@@ -26,6 +26,7 @@ public partial class NeuroiManager : MonoBehaviour
 
 		//TODO move this to speed setting(when implemented)
 		Neuroi.Speed = 20.0f;
+		Neuroi.ClonePiece = false;
 
 		neurois = new List<Neuroi>();
 		CrashedNeurois = new Queue<Neuroi>();

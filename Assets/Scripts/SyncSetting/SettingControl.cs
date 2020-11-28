@@ -16,6 +16,7 @@ public class SettingControl : MonoBehaviour
 	{
 		Neuroi.Speed = 20.0f;
 		Neuroi.FindHitPosition();
+		Neuroi.ClonePiece = true;
 		testingNeuroi.SetLane(0);
 		gInput = new GameplayInput(key);
 		gInput.DetermineInputType(TouchInput, KeyboardInput);
@@ -59,7 +60,11 @@ public class SettingControl : MonoBehaviour
 			{
 				if (gInput.AssignedKeyPresssed(pressed.Dequeue()))
 				{
-					Debug.Log(testingNeuroi.ShootDown());
+					if (testingNeuroi.ShootDown())
+					{
+						testingNeuroi.gameObject.SetActive(true);
+						testingNeuroi.transform.position = new Vector3(0, 0, range[0]);
+					}
 					return;
 				}
 			}

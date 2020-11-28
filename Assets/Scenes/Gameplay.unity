@@ -1611,11 +1611,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0961f023472983344a42a492a18f820b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  criteriaText: {fileID: 259947883}
-  comboText: {fileID: 1005024620}
-  scoreBar: {fileID: 72625146}
-  scoreText: {fileID: 153744204}
-  sRankImage: {fileID: 21300000, guid: 08f4822c19af49c469e28fcbdb8023d5, type: 3}
+  criteriaResult:
+    text: {fileID: 259947883}
+  scoreResult:
+    text: {fileID: 153744204}
+    scoreBar: {fileID: 72625146}
+    sRankImage: {fileID: 21300000, guid: 08f4822c19af49c469e28fcbdb8023d5, type: 3}
+  comboResult:
+    text: {fileID: 1005024620}
 --- !u!1 &559954040
 GameObject:
   m_ObjectHideFlags: 0

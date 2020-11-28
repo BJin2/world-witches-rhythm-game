@@ -32,9 +32,9 @@ public class FinalResult : MonoBehaviour
 			texts.Add(temp.Find($"Criteria{i}").Find("Number").GetComponent<TMP>());
 		}
 
-		GetDividedCriteria(HitResult.Instance.NumCriteria);
-		GetDividedCombo(HitResult.Instance.MaxCombo);
-		GetDividedScore(HitResult.Instance.Score);
+		GetDividedCriteria(HitResult.Instance.GetHitResultComponent<CriteriaResult>().NumCriteria);
+		GetDividedCombo(HitResult.Instance.GetHitResultComponent<ComboResult>().MaxCombo);
+		GetDividedScore(HitResult.Instance.GetHitResultComponent<ScoreResult>().Score);
 
 		gameObject.GetComponentInChildren<TitleAnimationEventHolder>().AnimationFinished += () => { step = 1; StartCoroutine(CriteriaCountUp()); };
 	}
