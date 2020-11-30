@@ -7,14 +7,13 @@ using TMPro;
 
 public class SelectionWindow : MonoBehaviour
 {
-	public delegate void ButtonEventHandler();
 	public static SelectionWindow Instance { get; private set; }
 
 	public struct ButtonInfo
 	{
 		public string buttonText;
-		public ButtonEventHandler eventHandler;
-		public ButtonInfo(string text, ButtonEventHandler handler)
+		public Action eventHandler;
+		public ButtonInfo(string text, Action handler)
 		{
 			buttonText = text;
 			eventHandler = handler;

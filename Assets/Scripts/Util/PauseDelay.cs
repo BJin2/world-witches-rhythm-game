@@ -9,8 +9,6 @@ public class PauseDelay : MonoBehaviour
 	public delegate void DelayDone();
 
 	[SerializeField]
-	private GameObject pauseCanvas = null;
-	[SerializeField]
 	private TextMeshProUGUI countdownText = null;
 	[SerializeField]
 	private GameObject pauseBG = null;
@@ -35,7 +33,7 @@ public class PauseDelay : MonoBehaviour
 			return;
 
 		delayRunning = true;
-		pauseCanvas.SetActive(true);
+		countdownText.gameObject.SetActive(true);
 		StartCoroutine(DelayWithText(delay));
 	}
 
@@ -48,7 +46,7 @@ public class PauseDelay : MonoBehaviour
 			delay--;
 		}
 
-		pauseCanvas.SetActive(false);
+		countdownText.gameObject.SetActive(false);
 		AfterDelay?.Invoke();
 		AfterDelay = null;
 		delayRunning = false;

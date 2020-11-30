@@ -71,6 +71,7 @@ public class Character : MonoBehaviour
 		shieldTimer = shieldCountdown;
 	}
 
+	/*/
 	private void LaneIndicator()
 	{
 		//Double check if it's missing(getting the closest one does not guarantee existance so closest one from flight class can be null or missing)
@@ -85,6 +86,7 @@ public class Character : MonoBehaviour
 			SetLaneIndicatorColor(colorStep[closestNeuroi.GetScore() / Neuroi.SCORE_MULTIPLIER]);
 		}
 	}
+	//*/
 	private void SetLaneIndicatorColor(Color toSet)
 	{
 		laneIndicator.startColor = toSet;

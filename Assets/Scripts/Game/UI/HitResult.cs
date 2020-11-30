@@ -8,88 +8,55 @@ public class HitResult : MonoBehaviour
 {
 	public static HitResult Instance { get; private set; }
 
-	[SerializeField]
-	private TMP criteriaText = null;
-	private string[] criteria = { "Miss", "Bad", "Nice" , "Good", "Perfect" };
+	private List<HitResultComponent> hitResultComponents;
 
 	[SerializeField]
-	private TMP comboText = null;
-	private Animator comboAnim = null;
-	private int combo = 0;
+	private CriteriaResult criteriaResult = null;
+	[SerializeField]
+	private ScoreResult scoreResult = null;
+	[SerializeField]
+	private ComboResult comboResult = null;
 
-	[SerializeField]
-	private UnityEngine.UI.Slider scoreBar;
-	[SerializeField]
-	private TMP scoreText;
-	[SerializeField]
-	private Sprite sRankImage;
-	private float sRankStandard = 0;
-
-	public int MaxCombo { get; private set; }
-	public List<int> NumCriteria { get; private set; }
-	public int Score { get; private set; }
 
 	private void Awake()
 	{
 		Instance = this;
-		comboAnim = comboText.GetComponent<Animator>();
-		MaxCombo = 0;
-		NumCriteria = new List<int>();
-		for (int i = 0; i < criteria.Length; i++)
+
+		hitResultComponents = new List<HitResultComponent>();
+		hitResultComponents.Add(criteriaResult);
+		hitResultComponents.Add(scoreResult);
+		hitResultComponents.Add(comboResult);
+
+		foreach (HitResultComponent hrc in hitResultComponents)
 		{
-			NumCriteria.Add(0);
+			if (hrc == null || hrc.text == null)
+				continue;	
+			hrc.Init();
 		}
 	}
 
 	public void Judge(int score)
 	{
-		AddScore(score);
-		int step = score / Neuroi.SCORE_MULTIPLIER;
-		if (step < 3)
+		foreach (HitResultComponent hrc in hitResultComponents)
 		{
-			HideCombo();
+			if (hrc == null || hrc.text == null)
+				continue;
+			hrc.Judge(score);
 		}
-		else
-		{
-			IncreaseCombo();
-		}
-		criteriaText.text = criteria[step];
-		NumCriteria[step]++;
 	}
 
-	private void IncreaseCombo()
+	public T GetHitResultComponent<T>() where T : HitResultComponent
 	{
-		comboText.transform.parent.gameObject.SetActive(true);
-		combo++;
-		comboText.text = combo.ToString();
-		comboAnim.Play("ComboScale",0, 0);
+		if (hitResultComponents == null)
+			return null;
 
-		if (combo > MaxCombo)
-			MaxCombo = combo;
-	}
-	private void HideCombo()
-	{
-		comboAnim.StopPlayback();
-		comboText.transform.parent.gameObject.SetActive(false);
-		combo = 0;
-	}
-
-	private void AddScore(int amount)
-	{
-		if (sRankStandard == 0)
+		foreach (HitResultComponent hrc in hitResultComponents)
 		{
-			sRankStandard = Neuroi.SCORE_MULTIPLIER * criteria.Length * Spawner.Instance.TotalNeuroi * 0.6f;
+			if (hrc is T)
+			{
+				return (T)hrc;
+			}
 		}
-		Score += amount;
-		scoreText.text = Score.ToString();
-		scoreBar.value = (float)Score/sRankStandard;
-		if (scoreBar.value < 1)
-		{
-			scoreBar.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 1, scoreBar.value);
-		}
-		else
-		{
-			scoreBar.fillRect.GetComponent<UnityEngine.UI.Image>().sprite = sRankImage;
-		}
+		return null;
 	}
 }

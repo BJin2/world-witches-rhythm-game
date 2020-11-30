@@ -88,7 +88,7 @@ public partial class Flight : MonoBehaviour
 		{
 			if (IsMissing(closestNeurois[i]))
 			{
-				closestNeurois[i] = Spawner.Instance.GetFirstActiveNeuroiOnLane(i);
+				closestNeurois[i] = NeuroiManager.Instance.GetFirstActiveNeuroiOnLane(i);
 				flight[i].SetClosest(closestNeurois[i]);
 			}
 		}
@@ -96,9 +96,9 @@ public partial class Flight : MonoBehaviour
 		gInput.processGameplayInput?.Invoke();
 
 		//Deal with missed neurois
-		while (Spawner.Instance.CrashedNeurois.Count > 0)
+		while (NeuroiManager.Instance.CrashedNeurois.Count > 0)
 		{
-			Shield(Spawner.Instance.CrashedNeurois.Dequeue().Lane);
+			Shield(NeuroiManager.Instance.CrashedNeurois.Dequeue().Lane);
 			HealthBar.Instance.DecreaseHealth();
 		}
 	}

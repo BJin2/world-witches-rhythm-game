@@ -54,6 +54,15 @@ public class GameplayInput
 		return -1;
 	}
 
+	public bool AssignedKeyPresssed(KeyCode key)
+	{
+		for (int i = 0; i < keys.Length; i++)
+		{
+			if (keys[i] == key)
+				return true;
+		}
+		return false;
+	}
 
 	public void DetermineInputType(ProcessInput touchVersion, ProcessInput keyboardVersion)
 	{
