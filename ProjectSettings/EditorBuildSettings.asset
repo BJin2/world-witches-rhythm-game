@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Result.unity
     guid: bce78da61ff06484ab5b621a1ee339ef
+  - enabled: 1
+    path: Assets/Scenes/SyncSetting.unity
+    guid: f8da1b3472ded734dbdf9155b045853d
   m_configObjects: {}
