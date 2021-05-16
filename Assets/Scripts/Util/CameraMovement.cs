@@ -77,6 +77,31 @@ public class CameraMovement : MonoBehaviour
 
 	private void Update()
 	{
+		if (Input.GetKey(KeyCode.W))
+		{
+			target.Translate(Vector3.up * Time.deltaTime);
+		}
+		else if (Input.GetKey(KeyCode.S))
+		{
+			target.Translate(Vector3.down * Time.deltaTime);
+		}
+		if (Input.GetKey(KeyCode.A))
+		{
+			target.Translate(Vector3.right * Time.deltaTime);
+		}
+		else if (Input.GetKey(KeyCode.D))
+		{
+			target.Translate(Vector3.left * Time.deltaTime);
+		}
+		if (Input.GetKey(KeyCode.Q))
+		{
+			target.Translate(Vector3.forward * Time.deltaTime);
+		}
+		else if (Input.GetKey(KeyCode.E))
+		{
+			target.Translate(Vector3.back * Time.deltaTime);
+		}
+
 		Rotate();
 		Follow(transform, target);
 		Zoom(Input.mouseScrollDelta.y);
